@@ -1,0 +1,78 @@
+# Abra
+
+## What is this
+
+Abra is a minimal WordPress block theme starter — the Gutenberg-era equivalent of Underscores. Zero styles, zero design opinions. Built for developers who custom-roll their themes. Every WordPress default decision has been explicitly suppressed — you start with a clean slate.
+
+## What you get
+
+- Minimal block theme (FSE) with a fully configured `theme.json`
+- All WordPress default presets suppressed (colors, gradients, fonts, spacing, shadows, aspect ratios)
+- Single developer control panel in `settings.custom` — change tokens, they cascade everywhere
+- Native breakpoint control via `settings.viewport` (WordPress 7.1+)
+- Templates: index, single, page, archive, 404
+- Header + footer template parts
+- ACF wired with JSON sync to `acf-json/` — field groups are version controlled
+- Auto-registering ACF block system — drop a folder in `/blocks/`, it registers itself
+- Example block in `/blocks/example-card/` — duplicate to create new blocks
+- Example pattern in `/patterns/example-hero.php` — duplicate to create new patterns
+- Block override CSS in `assets/css/blocks.css` — documented pattern for overriding core block styles
+- Admin bar height exposed as `--admin-bar-height` CSS custom property
+- Nav submenu hardcoded colors reset to inherit
+- Browser body margin reset
+
+## Requirements
+
+- WordPress 6.4+
+- PHP 8.0+
+- WP-CLI (for setup script)
+- ACF Free or ACF Pro
+
+## Setup
+
+```bash
+# 1. Clone into your themes directory
+cd wp-content/themes
+git clone https://github.com/adamtrabold/abra
+
+# 2. Activate the theme in WordPress admin
+
+# 3. Install ACF (run from WordPress root)
+chmod +x wp-content/themes/abra/setup.sh
+bash wp-content/themes/abra/setup.sh
+```
+
+## theme.json — the control panel
+
+All developer-configurable tokens live in `settings.custom`. Change a value there and it cascades as a CSS custom property (`--wp--custom--key--nested`) and can be referenced anywhere in `theme.json` via `var:custom|key|nested`.
+
+## Creating a new block
+
+```bash
+cp -r blocks/example-card blocks/my-block
+# Edit block.json (name, title)
+# Edit render.php
+# Register fields in ACF admin
+# Block auto-appears in the editor
+```
+
+## Creating a pattern
+
+```bash
+cp patterns/example-hero.php patterns/my-pattern.php
+# Edit the file header (Title, Slug)
+# Edit the block markup below
+# Pattern auto-appears in the inserter
+```
+
+## Overriding core block styles
+
+Core block styles live at `wp-includes/blocks/{block-name}/style.css`. Copy the selector and rule you want to change into `assets/css/blocks.css` and change the value. Cascade does the rest.
+
+## ACF field groups
+
+Create field groups in WP Admin → Custom Fields. They auto-save as JSON to `acf-json/`. Commit those files. On a new environment: WP Admin → Custom Fields → Sync.
+
+## Git workflow
+
+Always commit `acf-json/*.json`. That's how field group structure travels between environments.

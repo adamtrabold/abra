@@ -1,0 +1,5 @@
+node_modules/
+.DS_Store
+*.log
+assets/css/*.min.css
+assets/js/*.min.js

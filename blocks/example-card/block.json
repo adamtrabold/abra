@@ -1,0 +1,18 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "abra/example-card",
+    "title": "Example Card",
+    "description": "An example ACF block. Duplicate this folder to create new blocks.",
+    "category": "abra",
+    "icon": "layout",
+    "keywords": ["card", "example"],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "render.php"
+    },
+    "supports": {
+        "anchor": true,
+        "align": ["wide", "full"]
+    }
+}

@@ -1,0 +1,19 @@
+/*
+ * global.css
+ * Sitewide styles. Add yours here.
+ */
+
+/* Box sizing */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Images */
+img,
+video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
