@@ -16,6 +16,7 @@ Abra is a starter WordPress block theme reset button for the Gutenberg era. Zero
 - Auto-registering ACF block system — drop a folder in `/blocks/`, it registers itself
 - Example block in `/blocks/example-card/` — duplicate to create new blocks
 - Example pattern in `/patterns/example-hero.php` — duplicate to create new patterns
+- [Andy Bell's Modern CSS Reset](https://andy-bell.co.uk/a-more-modern-css-reset/) in `assets/css/global.css` — sensible baseline, supplemented with `video` and `height: auto`
 - Block override CSS in `assets/css/blocks.css` — documented pattern for overriding core block styles
 - Admin bar height exposed as `--admin-bar-height` CSS custom property
 - Nav submenu hardcoded colors reset to inherit

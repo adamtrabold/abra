@@ -1,7 +1,14 @@
 /*
  * global.css
- * Sitewide styles. Add yours here.
+ * Sitewide styles. Add yours below the reset.
  */
+
+/* =========================================
+   RESET
+   Andy Bell's Modern CSS Reset (2023)
+   https://andy-bell.co.uk/a-more-modern-css-reset/
+   Supplemented: video added to media rule; height: auto retained.
+   ========================================= */
 
 /* Box sizing */
 *,
@@ -10,10 +17,75 @@
     box-sizing: border-box;
 }
 
-/* Images */
+/* Prevent font size inflation on mobile */
+html {
+    -moz-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+}
+
+/* Remove default margin on common elements */
+body, h1, h2, h3, h4,
+p, figure, blockquote, dl, dd {
+    margin-block-end: 0;
+}
+
+/* Remove list styles only when role="list" is set */
+ul[role='list'],
+ol[role='list'] {
+    list-style: none;
+}
+
+/* Core body defaults */
+body {
+    min-height: 100svh;
+    line-height: 1.5;
+}
+
+/* Shorter line heights on headings and interactive elements */
+h1, h2, h3, h4,
+button, input, label {
+    line-height: 1.1;
+}
+
+/* Balance text wrapping on headings */
+h1, h2, h3, h4 {
+    text-wrap: balance;
+}
+
+/* Unstyled links get ink-skip and inherit color */
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+    color: currentColor;
+}
+
+/* Media defaults */
 img,
+picture,
 video {
     max-width: 100%;
     height: auto;
     display: block;
 }
+
+/* Form elements inherit fonts */
+input, button,
+textarea, select {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+/* Textareas without rows shouldn't be tiny */
+textarea:not([rows]) {
+    min-height: 10em;
+}
+
+/* Scroll margin for anchor targets */
+:target {
+    scroll-margin-block: 5ex;
+}
+
+/* =========================================
+   SITEWIDE STYLES
+   Add yours here.
+   ========================================= */
