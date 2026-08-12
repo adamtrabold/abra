@@ -42,17 +42,17 @@ WordPress turns these into CSS custom properties you can use anywhere:
 .card { border-radius: var(--wp--custom--border-radius--md); }
 ```
 
-Visit `/design-system` on your site (logged in) to see every token rendered live. The table always shows what's actually in effect.
+Visit `/design-system` on your site (logged in) to see every token rendered live.
 
 ---
 
 ## Starting a project
 
-Build directly in Abra, or create a project theme to keep your work separate from future Abra updates.
+Build directly in Abra, or create a child theme for your project to keep your work separate from future Abra updates.
 
-On your dashboard and Appearance page, Abra shows a notice with a single field. Type your project name, hit **Create Child Theme** — Abra generates a ready-to-edit theme with your name on it, copies all the templates and parts into it, and activates it automatically.
+On your dashboard and Appearance page, Abra shows a notice to create a child theme in one click. Type your project name, hit **Create Child Theme** — Abra generates a ready-to-edit theme, copies all the templates and parts into it, and activates it automatically.
 
-Your project theme includes a `theme.example.json` showing every token Abra defines. Copy any group into `theme.json` to override it — everything else inherits from Abra.
+Your child theme includes a `theme.example.json` showing every token Abra defines. Copy any group into `theme.json` to override the defaults set by the Abra parent theme.
 
 ---
 
