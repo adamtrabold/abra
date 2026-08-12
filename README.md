@@ -22,29 +22,7 @@ git clone https://github.com/adamtrabold/abra
 
 Activate in **Appearance → Themes**. Abra sets up your permalinks and creates Home, Blog, and Design System pages automatically. An admin notice will prompt you to install ACF.
 
----
-
-## Your tokens
-
-Everything that controls how your site looks — spacing, type, border radius, shadows, transitions — lives in `settings.custom` inside `theme.json`. Change a value there and it updates everywhere, no build step needed.
-
-```json
-"borderRadius": {
-    "sm": "4px",
-    "md": "8px",
-    "lg": "16px"
-}
-```
-
-WordPress turns these into CSS custom properties you can use anywhere:
-
-```css
-.card { border-radius: var(--wp--custom--border-radius--md); }
-```
-
-Visit `/design-system` on your site (logged in) to see every token rendered live.
-
----
+------
 
 ## Starting a project
 
@@ -64,7 +42,30 @@ A starter pattern lives in `/patterns/example-hero.php` — duplicate and edit.
 
 ---
 
-## ACF
+## Style tokens
+
+Everything that controls how your site looks — spacing, type, border radius, shadows, transitions — lives in `settings.custom` inside `theme.json`. Change a value there and it updates everywhere, no build step needed.
+
+```json
+"borderRadius": {
+    "sm": "4px",
+    "md": "8px",
+    "lg": "16px"
+}
+```
+
+WordPress turns these into CSS custom properties you can use anywhere:
+
+```css
+.card { border-radius: var(--wp--custom--border-radius--md); }
+```
+
+Visit `/design-system` on your site (logged in) to see every token rendered live.
+
+
+---
+
+## Content design via ACF
 
 [Advanced Custom Fields](https://www.advancedcustomfields.com/) is a WordPress plugin that makes it easy to customize the content of your site — things like a hero image, a testimonial, or a team member card. Abra comes with a quick install button out of the box.
 
