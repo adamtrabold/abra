@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+require_once get_template_directory() . '/lib/child-theme-generator.php';
+
 // ─────────────────────────────────────────────────────────────────────────────
 // 1. THEME SETUP
 // Block themes require explicit opt-in for wide/full alignment and responsive
