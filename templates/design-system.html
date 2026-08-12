@@ -187,6 +187,17 @@
             </table>
         </div>
 
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.abra-ds-table tbody tr').forEach(function (row) {
+            var cells = row.querySelectorAll('td');
+            if (cells.length < 2) return;
+            var prop = cells[0].textContent.trim();
+            var live = getComputedStyle(document.documentElement).getPropertyValue(prop).trim();
+            if (live) cells[1].textContent = live;
+        });
+    });
+    </script>
     </div>
     <!-- /wp:html -->
 
