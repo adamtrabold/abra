@@ -26,12 +26,14 @@ wp plugin install advanced-custom-fields --activate
 echo "Setting permalinks..."
 wp rewrite structure '/%postname%/' --hard
 
-echo "Creating Home and Blog pages..."
+echo "Creating pages..."
 HOME_ID=$(wp post create --post_type=page --post_title='Home' --post_status=publish --porcelain)
 BLOG_ID=$(wp post create --post_type=page --post_title='Blog' --post_status=publish --porcelain)
+DS_ID=$(wp post create --post_type=page --post_title='Design System' --post_status=publish --porcelain)
 wp option update show_on_front page
 wp option update page_on_front "$HOME_ID"
 wp option update page_for_posts "$BLOG_ID"
+wp post meta update "$DS_ID" _wp_page_template design-system
 
 echo ""
 echo "Done. Next steps:"
