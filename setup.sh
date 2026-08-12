@@ -26,6 +26,13 @@ wp plugin install advanced-custom-fields --activate
 echo "Setting permalinks..."
 wp rewrite structure '/%postname%/' --hard
 
+echo "Creating Home and Blog pages..."
+HOME_ID=$(wp post create --post_type=page --post_title='Home' --post_status=publish --porcelain)
+BLOG_ID=$(wp post create --post_type=page --post_title='Blog' --post_status=publish --porcelain)
+wp option update show_on_front page
+wp option update page_on_front "$HOME_ID"
+wp option update page_for_posts "$BLOG_ID"
+
 echo ""
 echo "Done. Next steps:"
 echo "  1. Activate the Abra theme in WP Admin → Appearance → Themes"

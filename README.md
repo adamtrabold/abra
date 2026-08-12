@@ -38,7 +38,7 @@ git clone https://github.com/adamtrabold/abra
 
 # 2. Activate the theme in WordPress admin
 
-# 3. Run setup (installs ACF, sets pretty permalinks)
+# 3. Run setup (installs ACF, sets pretty permalinks, creates Home + Blog pages)
 bash wp-content/themes/abra/setup.sh
 ```
 
