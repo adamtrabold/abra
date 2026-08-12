@@ -169,7 +169,8 @@ add_action('after_switch_theme', function (): void {
     }
 
     update_option('permalink_structure', '/%postname%/');
-    flush_rewrite_rules();
+    // Defer flush to init so all rewrite rules are registered first.
+    update_option('abra_flush_rewrite_rules', true);
 
     $home_id = wp_insert_post([
         'post_title'  => 'Home',
@@ -186,7 +187,7 @@ add_action('after_switch_theme', function (): void {
     $ds_id = wp_insert_post([
         'post_title'  => 'Design System',
         'post_type'   => 'page',
-        'post_status' => 'publish',
+        'post_status' => 'private',
     ]);
 
     update_option('show_on_front', 'page');
@@ -195,4 +196,11 @@ add_action('after_switch_theme', function (): void {
     update_post_meta($ds_id, '_wp_page_template', 'design-system');
 
     update_option('abra_setup_complete', true);
+});
+
+add_action('init', function (): void {
+    if (get_option('abra_flush_rewrite_rules')) {
+        delete_option('abra_flush_rewrite_rules');
+        flush_rewrite_rules();
+    }
 });
