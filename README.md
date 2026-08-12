@@ -4,10 +4,7 @@
   <img alt="Abra" src="/.github/abra_logo_dark.svg" width="120">
 </picture>
 
-# Abra
-
-## What is this
-
+# What's Abra?
 Abra is a starter WordPress block theme reset button for the Gutenberg era. Zero design opinions, built for creators of custom-rolled, bespoke experiences. Every WordPress default decision has been explicitly *poofed* away, [Andy Bell's Modern CSS Reset](https://andy-bell.co.uk/a-more-modern-css-reset/) disappears the browser-injected junk — you get a clean slate. Only necessary templates, blocks, and patterns to get started are provided, everything else is up to you. ACF bundled for ease of content configuration as you start building.
 
 ## What you get
