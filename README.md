@@ -103,10 +103,6 @@ Change a value in `theme.json`, it cascades everywhere. No build step. Use them 
 
 Visit `/design-system` on your site (logged in as admin) to see every token rendered live. The reference table reads actual computed values — it reflects both `theme.json` file values and any Site Editor overrides.
 
-## Site Editor and deployment
-
-Changes made in the WordPress Site Editor (templates, global styles) are saved to the database, not to theme files. They won't travel with your code when deploying to staging or production. For version-controllable changes, edit theme files directly. To bake Site Editor changes back into theme files, use the [Create Block Theme](https://wordpress.org/plugins/create-block-theme/) plugin.
-
 ## ACF field groups
 
 Create field groups in WP Admin → Custom Fields. They auto-save as JSON to `acf-json/`. Commit those files. On a new environment: WP Admin → Custom Fields → Sync.
