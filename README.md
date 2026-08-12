@@ -8,7 +8,7 @@
 
 ## What is this
 
-Abra is a starter WordPress block theme reset button for the Gutenberg era. Zero design opinions, built for creators of custom-rolled, bespoke experiences. Every WordPress default decision has been explicitly suppressed — you start with a clean slate. Only necessary templates, blocks, and patterns to get started are provided, everything else is up to you. ACF bundled for ease of content configuration.
+Abra is a starter WordPress block theme reset button for the Gutenberg era. Zero design opinions, built for creators of custom-rolled, bespoke experiences. Every WordPress default decision has been explicitly *poofed* away — you start with a clean slate. Only necessary templates, blocks, and patterns to get started are provided, everything else is up to you. ACF bundled for ease of content configuration.
 
 ## What you get
 
