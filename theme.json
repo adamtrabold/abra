@@ -185,11 +185,12 @@
     },
 
     "customTemplates": [
-        { "name": "index",   "title": "Blog Index",  "postTypes": ["post"] },
-        { "name": "single",  "title": "Single Post", "postTypes": ["post"] },
-        { "name": "page",    "title": "Page",        "postTypes": ["page"] },
-        { "name": "archive", "title": "Archive" },
-        { "name": "404",     "title": "404" }
+        { "name": "index",         "title": "Blog Index",      "postTypes": ["post"] },
+        { "name": "single",        "title": "Single Post",     "postTypes": ["post"] },
+        { "name": "page",          "title": "Page",            "postTypes": ["page"] },
+        { "name": "archive",       "title": "Archive" },
+        { "name": "404",           "title": "404" },
+        { "name": "design-system", "title": "Design System",   "postTypes": ["page"] }
     ],
 
     "templateParts": [
