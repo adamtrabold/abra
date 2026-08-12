@@ -31,12 +31,9 @@ Only necessary templates, blocks, and patterns to get started are provided, ever
 
 - WordPress 6.4+
 - PHP 8.0+
-- WP-CLI (for setup script)
 - ACF Free or ACF Pro
 
 ## Setup
-
-The easiest thing is to just point your favorite local AI agent at this github repo and say "get this running for me on [name of local site]."  But if you want to do it manually...
 
 ```bash
 # 1. Clone into your themes directory
@@ -44,10 +41,9 @@ cd wp-content/themes
 git clone https://github.com/adamtrabold/abra
 
 # 2. Activate the theme in WordPress admin
-
-# 3. Run setup (installs ACF, sets pretty permalinks, creates Home + Blog pages)
-bash wp-content/themes/abra/setup.sh
 ```
+
+On activation, Abra automatically sets pretty permalinks and creates your Home, Blog, and Design System pages. An admin notice will prompt you to install ACF.
 
 ## theme.json — the control panel
 

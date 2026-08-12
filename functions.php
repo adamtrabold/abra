@@ -140,3 +140,59 @@ add_action('init', function (): void {
 add_action('init', function (): void {
     register_block_pattern_category('abra', ['label' => 'Abra']);
 });
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 11. PLUGIN RECOMMENDATIONS
+// Recommends ACF via a dismissible admin notice. The library is bundled in
+// lib/ — no Composer required. The notice is dismissed forever (not 7-day
+// default) so it doesn't re-nag developers who skip ACF intentionally.
+// ─────────────────────────────────────────────────────────────────────────────
+if (is_admin()) {
+    require_once get_template_directory() . '/lib/wp-dismiss-notice.php';
+    require_once get_template_directory() . '/lib/wp-dependency-installer-skin.php';
+    require_once get_template_directory() . '/lib/wp-dependency-installer.php';
+
+    add_filter('wp_dependency_timeout', fn() => 'forever');
+
+    WP_Dependency_Installer::instance(get_template_directory())->run();
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 12. FIRST-RUN SETUP ON THEME ACTIVATION
+// Runs once when the theme is activated. Sets up permalinks, creates the
+// default pages, and wires the static front page — replacing the need for
+// setup.sh. Guarded by a site option so it never runs twice.
+// ─────────────────────────────────────────────────────────────────────────────
+add_action('after_switch_theme', function (): void {
+    if (get_option('abra_setup_complete')) {
+        return;
+    }
+
+    update_option('permalink_structure', '/%postname%/');
+    flush_rewrite_rules();
+
+    $home_id = wp_insert_post([
+        'post_title'  => 'Home',
+        'post_type'   => 'page',
+        'post_status' => 'publish',
+    ]);
+
+    $blog_id = wp_insert_post([
+        'post_title'  => 'Blog',
+        'post_type'   => 'page',
+        'post_status' => 'publish',
+    ]);
+
+    $ds_id = wp_insert_post([
+        'post_title'  => 'Design System',
+        'post_type'   => 'page',
+        'post_status' => 'publish',
+    ]);
+
+    update_option('show_on_front', 'page');
+    update_option('page_on_front', $home_id);
+    update_option('page_for_posts', $blog_id);
+    update_post_meta($ds_id, '_wp_page_template', 'design-system');
+
+    update_option('abra_setup_complete', true);
+});
