@@ -18,6 +18,10 @@ add_action('admin_notices', function (): void {
     if (get_option('abra_child_dismissed')) {
         return;
     }
+    $screen = get_current_screen();
+    if (!in_array($screen?->id, ['dashboard', 'themes'], true)) {
+        return;
+    }
     $action_url  = esc_url(admin_url('admin-post.php'));
     $dismiss_url = esc_url(wp_nonce_url(admin_url('admin-post.php?action=abra_dismiss_child'), 'abra_dismiss_child'));
     ?>
