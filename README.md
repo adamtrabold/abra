@@ -1,3 +1,9 @@
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="/.github/abra_logo_light.svg">
+  <source media="(prefers-color-scheme: light)" srcset="/.github/abra_logo_dark.svg">
+  <img alt="Abra" src="/.github/abra_logo_dark.svg" width="120">
+</picture>
+
 # Abra
 
 ## What is this
