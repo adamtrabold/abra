@@ -13,7 +13,7 @@ Abra is a starter WordPress block theme reset button for the Gutenberg era. Zero
 - All WordPress default presets suppressed (colors, gradients, fonts, spacing, shadows, aspect ratios)
 - Single control panel in `settings.custom` — change tokens, they cascade everywhere
 - Native breakpoint control via `settings.viewport` (WordPress 7.1+)
-- Templates: index, single, page, archive, 404
+- Templates: index, single, page, archive, 404, design system preview page (hidden from nav)
 - Header + footer template parts
 - ACF wired with JSON sync to `acf-json/` — field groups are version controlled
 - Auto-registering ACF block system — drop a folder in `/blocks/`, it registers itself
