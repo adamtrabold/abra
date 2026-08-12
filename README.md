@@ -2,7 +2,7 @@
 
 ## What is this
 
-Abra is a starter WordPress block theme reset button for the Gutenberg era. Zero design opinions, built for creators of custom-rolled, bespoke experiences. Every WordPress default decision has been explicitly suppressed — you start with a clean slate. Only necessary templates to get started provided, everything else is up to you. ACF bundled for ease of content configuration.
+Abra is a starter WordPress block theme reset button for the Gutenberg era. Zero design opinions, built for creators of custom-rolled, bespoke experiences. Every WordPress default decision has been explicitly suppressed — you start with a clean slate. Only necessary templates, blocks, and patterns to get started are provided, everything else is up to you. ACF bundled for ease of content configuration.
 
 ## What you get
 
@@ -45,29 +45,6 @@ bash wp-content/themes/abra/setup.sh
 ## theme.json — the control panel
 
 All developer-configurable tokens live in `settings.custom`. Change a value there and it cascades as a CSS custom property (`--wp--custom--key--nested`) and can be referenced anywhere in `theme.json` via `var:custom|key|nested`.
-
-## Creating a new block
-
-```bash
-cp -r blocks/example-card blocks/my-block
-# Edit block.json (name, title)
-# Edit render.php
-# Register fields in ACF admin
-# Block auto-appears in the editor
-```
-
-## Creating a pattern
-
-```bash
-cp patterns/example-hero.php patterns/my-pattern.php
-# Edit the file header (Title, Slug)
-# Edit the block markup below
-# Pattern auto-appears in the inserter
-```
-
-## Overriding core block styles
-
-Core block styles live at `wp-includes/blocks/{block-name}/style.css`. Copy the selector and rule you want to change into `assets/css/blocks.css` and change the value. Cascade does the rest.
 
 ## ACF field groups
 
