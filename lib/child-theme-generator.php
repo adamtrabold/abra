@@ -141,6 +141,12 @@ function abra_generate_child(string $slug, string $name): true|WP_Error
         file_put_contents($child_dir . '/patterns/' . basename($src), $content);
     }
 
+    // Screenshot
+    $child_screenshot_src = $parent_dir . '/screenshot-child.png';
+    if (file_exists($child_screenshot_src)) {
+        copy($child_screenshot_src, $child_dir . '/screenshot.png');
+    }
+
     return true;
 }
 
