@@ -24,12 +24,14 @@ add_action('admin_notices', function (): void {
     }
     $action_url  = esc_url(admin_url('admin-post.php'));
     $dismiss_url = esc_url(wp_nonce_url(admin_url('admin-post.php?action=abra_dismiss_child'), 'abra_dismiss_child'));
+    $logo_url    = esc_url(get_template_directory_uri() . '/.github/abra_logo_dark.svg');
     ?>
     <div class="notice notice-info" id="abra-child-notice">
         <form method="post" action="<?= $action_url ?>" style="display:flex;align-items:center;gap:1rem;padding:0.5rem 0;flex-wrap:wrap;">
             <?php wp_nonce_field('abra_create_child', 'abra_nonce'); ?>
             <input type="hidden" name="action" value="abra_create_child">
-            <p style="margin:0;"><strong>Abra</strong> — Build directly in this theme, or generate a child theme to keep your project separate from Abra updates.</p>
+            <img src="<?= $logo_url ?>" alt="Abra" height="28" style="display:block;opacity:0.85;">
+            <p style="margin:0;">Build directly in this theme, or generate a child theme to keep your project separate from Abra updates.</p>
             <input type="text" name="abra_child_name" placeholder="Project name" style="width:180px;" required>
             <button type="submit" class="button button-primary">Create Child Theme</button>
             <a href="<?= $dismiss_url ?>" class="button button-link">Dismiss</a>
