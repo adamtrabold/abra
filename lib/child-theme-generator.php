@@ -130,7 +130,7 @@ function abra_generate_child(string $slug, string $name): true|WP_Error
         $child_dir  . '/blocks',
         fn (string $content, string $file): string =>
             basename($file) === 'block.json'
-                ? str_replace('"abra/', '"' . $slug . '/', $content)
+                ? str_replace(['"abra/', '"category": "abra"'], ['"' . $slug . '/', '"category": "' . $slug . '"'], $content)
                 : $content
     );
 
