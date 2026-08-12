@@ -63,6 +63,8 @@ WordPress turns these into CSS custom properties you can use anywhere:
 Visit `/design-system` on your site (logged in) to see every token rendered live.
 
 
+> **Note:** Style changes made in the WordPress Appearance panel (Site Editor) are saved to the database, not to `theme.json`. They won't carry between environments unless the database travels with the files. Use a plugin like [Create Block Theme](https://wordpress.org/plugins/create-block-theme/) to write Appearance panel changes back to your theme files.
+
 ---
 
 ## Content design via ACF
