@@ -24,13 +24,14 @@ add_action('admin_notices', function (): void {
     }
     $action_url  = esc_url(admin_url('admin-post.php'));
     $dismiss_url = esc_url(wp_nonce_url(admin_url('admin-post.php?action=abra_dismiss_child'), 'abra_dismiss_child'));
-    $logo_url    = esc_url(get_template_directory_uri() . '/.github/abra_logo_dark.svg');
     ?>
     <div class="notice notice-info" id="abra-child-notice">
         <form method="post" action="<?= $action_url ?>" style="display:flex;align-items:center;gap:1rem;padding:0.5rem 0;flex-wrap:wrap;">
             <?php wp_nonce_field('abra_create_child', 'abra_nonce'); ?>
             <input type="hidden" name="action" value="abra_create_child">
-            <img src="<?= $logo_url ?>" alt="Abra" height="28" style="display:block;opacity:0.85;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1014.98" height="28" aria-label="Abra" style="display:block;opacity:0.85;flex-shrink:0;">
+                <path fill="currentColor" d="M518.67,638.64c0-1.09-.05-2.18-.13-3.26,64.66-3.82,124.49-12.15,176.35-23.94l-183.68,326.6h488.8l-201.96-359.1c56.09-24.42,89.31-54.74,89.31-87.58,0-47.14-68.47-89.08-174.79-115.85,106.32-26.77,174.79-68.7,174.79-115.85,0-80.84-201.3-146.38-449.62-146.38v230.46L244.4,0,0,434.55h437.73v119.31c-81.28-38.29-216.09-63.33-368.68-63.33v524.46h449.62l-229.39-247.19c136.9-25.39,229.39-73.71,229.39-129.15Z"/>
+            </svg>
             <p style="margin:0;">Build directly in this theme, or generate a child theme to keep your project separate from Abra updates.</p>
             <input type="text" name="abra_child_name" placeholder="Project name" style="width:180px;" required>
             <button type="submit" class="button button-primary">Create Child Theme</button>
