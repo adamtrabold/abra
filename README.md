@@ -49,7 +49,19 @@ bash wp-content/themes/abra/setup.sh
 
 ## theme.json — the control panel
 
-All developer-configurable tokens live in `settings.custom`. Change a value there and it cascades as a CSS custom property (`--wp--custom--key--nested`) and can be referenced anywhere in `theme.json` via `var:custom|key|nested`.
+Your design tokens — spacing, type, shadows, radii, transitions — live in the `settings.custom` section of `theme.json`. WordPress automatically converts them to CSS custom properties:
+
+```
+settings.custom.borderRadius.sm  →  --wp--custom--border-radius--sm
+```
+
+Change a value in `theme.json`, it cascades everywhere. No build step. Use them in CSS like any custom property:
+
+```css
+.card { border-radius: var(--wp--custom--border-radius--md); }
+```
+
+Visit `/design-system` on your site to see every token rendered live.
 
 ## ACF field groups
 
