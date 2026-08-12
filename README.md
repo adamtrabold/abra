@@ -34,6 +34,8 @@ Abra is a starter WordPress block theme reset button for the Gutenberg era. Zero
 
 ## Setup
 
+The easiest thing is to just point your favorite local AI agent at this github repo and say "get this running for me on [name of local site]."  But if you want to do it manually...
+
 ```bash
 # 1. Clone into your themes directory
 cd wp-content/themes
