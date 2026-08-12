@@ -168,9 +168,9 @@ add_action('after_switch_theme', function (): void {
         return;
     }
 
-    update_option('permalink_structure', '/%postname%/');
-    // Defer flush to init so all rewrite rules are registered first.
-    update_option('abra_flush_rewrite_rules', true);
+    global $wp_rewrite;
+    $wp_rewrite->set_permalink_structure('/%postname%/');
+    flush_rewrite_rules();
 
     $home_id = wp_insert_post([
         'post_title'  => 'Home',
@@ -198,9 +198,3 @@ add_action('after_switch_theme', function (): void {
     update_option('abra_setup_complete', true);
 });
 
-add_action('init', function (): void {
-    if (get_option('abra_flush_rewrite_rules')) {
-        delete_option('abra_flush_rewrite_rules');
-        flush_rewrite_rules();
-    }
-});
