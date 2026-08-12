@@ -2,13 +2,13 @@
 
 ## What is this
 
-Abra is a minimal WordPress block theme starter — the Gutenberg-era equivalent of Underscores. Zero styles, zero design opinions. Built for developers who custom-roll their themes. Every WordPress default decision has been explicitly suppressed — you start with a clean slate.
+Abra is a starter WordPress block theme reset button for the Gutenberg era. Zero design opinions, built for creators of custom-rolled, bespoke experiences. Every WordPress default decision has been explicitly suppressed — you start with a clean slate. Only necessary templates to get started provided, everything else is up to you. ACF bundled for ease of content configuration.
 
 ## What you get
 
 - Minimal block theme (FSE) with a fully configured `theme.json`
 - All WordPress default presets suppressed (colors, gradients, fonts, spacing, shadows, aspect ratios)
-- Single developer control panel in `settings.custom` — change tokens, they cascade everywhere
+- Single control panel in `settings.custom` — change tokens, they cascade everywhere
 - Native breakpoint control via `settings.viewport` (WordPress 7.1+)
 - Templates: index, single, page, archive, 404
 - Header + footer template parts
