@@ -4,202 +4,91 @@
 <main class="wp-block-group">
 
     <!-- wp:heading {"level":1} -->
-    <h1>Design System</h1>
+    <h1 class="wp-block-heading">Design System</h1>
+    <!-- /wp:heading -->
+
+    <!-- wp:heading {"level":1} -->
+    <h1 class="wp-block-heading">Heading 1 — The quick brown fox jumps over the lazy dog</h1>
+    <!-- /wp:heading -->
+
+    <!-- wp:heading {"level":2} -->
+    <h2 class="wp-block-heading">Heading 2 — The quick brown fox jumps over the lazy dog</h2>
+    <!-- /wp:heading -->
+
+    <!-- wp:heading {"level":3} -->
+    <h3 class="wp-block-heading">Heading 3 — The quick brown fox jumps over the lazy dog</h3>
+    <!-- /wp:heading -->
+
+    <!-- wp:heading {"level":4} -->
+    <h4 class="wp-block-heading">Heading 4 — The quick brown fox jumps over the lazy dog</h4>
+    <!-- /wp:heading -->
+
+    <!-- wp:heading {"level":5} -->
+    <h5 class="wp-block-heading">Heading 5 — The quick brown fox jumps over the lazy dog</h5>
+    <!-- /wp:heading -->
+
+    <!-- wp:heading {"level":6} -->
+    <h6 class="wp-block-heading">Heading 6 — The quick brown fox jumps over the lazy dog</h6>
     <!-- /wp:heading -->
 
     <!-- wp:paragraph -->
-    <p>Token preview for <code>settings.custom</code> in <code>theme.json</code>.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
     <!-- /wp:paragraph -->
 
-    <!-- wp:html -->
-    <style>
-        .abra-ds-section { margin-block: 3rem; }
-        .abra-ds-section > h2 {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            opacity: 0.45;
-            padding-block-end: 0.5rem;
-            border-block-end: 1px solid currentColor;
-            margin-block-end: 1.5rem;
-        }
-        .abra-ds-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; }
-        .abra-ds-cell { padding: 1.25rem; background: rgba(128,128,128,0.07); }
-        .abra-ds-name { font-size: 0.8rem; font-weight: 600; margin-block-end: 0.25rem; }
-        .abra-ds-var { font-family: monospace; font-size: 0.65rem; opacity: 0.4; word-break: break-all; margin-block-start: 0.5rem; }
-        .abra-ds-table { width: 100%; border-collapse: collapse; }
-        .abra-ds-table th { text-align: left; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.5; padding-block: 0.5rem; border-block-end: 1px solid currentColor; }
-        .abra-ds-table td { padding-block: 0.5rem; border-block-end: 1px solid rgba(128,128,128,0.12); font-family: monospace; font-size: 0.8rem; vertical-align: top; }
-        .abra-ds-table td:first-child { opacity: 0.55; padding-inline-end: 2rem; width: 55%; }
-    </style>
-
-    <div>
-
-        <div class="abra-ds-section">
-            <h2>Typography</h2>
-            <h1 style="margin: 0">Heading 1</h1>
-            <h2 style="margin: 0">Heading 2</h2>
-            <h3 style="margin: 0">Heading 3</h3>
-            <h4 style="margin: 0">Heading 4</h4>
-            <h5 style="margin: 0">Heading 5</h5>
-            <h6 style="margin: 0">Heading 6</h6>
-            <p style="margin: 0">Paragraph — The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs. How vexingly quick daft zebras jump.</p>
-        </div>
-
-        <div class="abra-ds-section">
-            <h2>Line Heights</h2>
-            <div class="abra-ds-grid">
-                <div class="abra-ds-cell" style="line-height: var(--wp--custom--line-height--tight)">
-                    The quick brown fox jumps over the lazy dog.
-                    <div class="abra-ds-name" style="margin-block-start: 0.75rem;">tight</div>
-                    <div class="abra-ds-var">--wp--custom--line-height--tight</div>
-                </div>
-                <div class="abra-ds-cell" style="line-height: var(--wp--custom--line-height--snug)">
-                    The quick brown fox jumps over the lazy dog.
-                    <div class="abra-ds-name" style="margin-block-start: 0.75rem;">snug</div>
-                    <div class="abra-ds-var">--wp--custom--line-height--snug</div>
-                </div>
-                <div class="abra-ds-cell" style="line-height: var(--wp--custom--line-height--normal)">
-                    The quick brown fox jumps over the lazy dog.
-                    <div class="abra-ds-name" style="margin-block-start: 0.75rem;">normal</div>
-                    <div class="abra-ds-var">--wp--custom--line-height--normal</div>
-                </div>
-                <div class="abra-ds-cell" style="line-height: var(--wp--custom--line-height--loose)">
-                    The quick brown fox jumps over the lazy dog.
-                    <div class="abra-ds-name" style="margin-block-start: 0.75rem;">loose</div>
-                    <div class="abra-ds-var">--wp--custom--line-height--loose</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="abra-ds-section">
-            <h2>Border Radius</h2>
-            <div class="abra-ds-grid">
-                <div class="abra-ds-cell" style="border-radius: var(--wp--custom--border-radius--sm)">
-                    <div class="abra-ds-name">sm</div>
-                    <div class="abra-ds-var">--wp--custom--border-radius--sm</div>
-                </div>
-                <div class="abra-ds-cell" style="border-radius: var(--wp--custom--border-radius--md)">
-                    <div class="abra-ds-name">md</div>
-                    <div class="abra-ds-var">--wp--custom--border-radius--md</div>
-                </div>
-                <div class="abra-ds-cell" style="border-radius: var(--wp--custom--border-radius--lg)">
-                    <div class="abra-ds-name">lg</div>
-                    <div class="abra-ds-var">--wp--custom--border-radius--lg</div>
-                </div>
-                <div class="abra-ds-cell" style="border-radius: var(--wp--custom--border-radius--pill)">
-                    <div class="abra-ds-name">pill</div>
-                    <div class="abra-ds-var">--wp--custom--border-radius--pill</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="abra-ds-section">
-            <h2>Shadows</h2>
-            <div class="abra-ds-grid">
-                <div class="abra-ds-cell" style="box-shadow: var(--wp--custom--shadow--sm)">
-                    <div class="abra-ds-name">sm</div>
-                    <div class="abra-ds-var">--wp--custom--shadow--sm</div>
-                </div>
-                <div class="abra-ds-cell" style="box-shadow: var(--wp--custom--shadow--md)">
-                    <div class="abra-ds-name">md</div>
-                    <div class="abra-ds-var">--wp--custom--shadow--md</div>
-                </div>
-                <div class="abra-ds-cell" style="box-shadow: var(--wp--custom--shadow--lg)">
-                    <div class="abra-ds-name">lg</div>
-                    <div class="abra-ds-var">--wp--custom--shadow--lg</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="abra-ds-section">
-            <h2>Spacing</h2>
-            <div style="display: flex; flex-direction: column; gap: 1rem;">
-                <div>
-                    <div style="display: flex; flex-direction: column; gap: var(--wp--custom--spacing--stack);">
-                        <div style="height: 2rem; background: rgba(128,128,128,0.15);"></div>
-                        <div style="height: 2rem; background: rgba(128,128,128,0.15);"></div>
-                    </div>
-                    <div class="abra-ds-name" style="margin-block-start: 0.5rem;">stack — gap between elements</div>
-                    <div class="abra-ds-var">--wp--custom--spacing--stack</div>
-                </div>
-                <div>
-                    <div style="padding-block: var(--wp--custom--spacing--section); background: rgba(128,128,128,0.15); text-align: center; font-size: 0.8rem; opacity: 0.6;">section padding (top + bottom)</div>
-                    <div class="abra-ds-name" style="margin-block-start: 0.5rem;">section — between page sections</div>
-                    <div class="abra-ds-var">--wp--custom--spacing--section</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="abra-ds-section">
-            <h2>Transitions — hover each cell</h2>
-            <div class="abra-ds-grid">
-                <div class="abra-ds-cell" style="cursor: pointer; transition: opacity var(--wp--custom--transition--fast);" onmouseenter="this.style.opacity='0.3'" onmouseleave="this.style.opacity='1'">
-                    <div class="abra-ds-name">fast</div>
-                    <div class="abra-ds-var">--wp--custom--transition--fast</div>
-                </div>
-                <div class="abra-ds-cell" style="cursor: pointer; transition: opacity var(--wp--custom--transition--base);" onmouseenter="this.style.opacity='0.3'" onmouseleave="this.style.opacity='1'">
-                    <div class="abra-ds-name">base</div>
-                    <div class="abra-ds-var">--wp--custom--transition--base</div>
-                </div>
-                <div class="abra-ds-cell" style="cursor: pointer; transition: opacity var(--wp--custom--transition--slow);" onmouseenter="this.style.opacity='0.3'" onmouseleave="this.style.opacity='1'">
-                    <div class="abra-ds-name">slow</div>
-                    <div class="abra-ds-var">--wp--custom--transition--slow</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="abra-ds-section">
-            <h2>Token Reference</h2>
-            <table class="abra-ds-table">
-                <thead>
-                    <tr><th>Custom Property</th><th>Value</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>--wp--custom--viewport--mobile</td><td>480px</td></tr>
-                    <tr><td>--wp--custom--viewport--tablet</td><td>782px</td></tr>
-                    <tr><td>--wp--custom--viewport--desktop</td><td>1024px</td></tr>
-                    <tr><td>--wp--custom--viewport--wide</td><td>1280px</td></tr>
-                    <tr><td>--wp--custom--layout--content</td><td>720px</td></tr>
-                    <tr><td>--wp--custom--layout--wide</td><td>1200px</td></tr>
-                    <tr><td>--wp--custom--layout--gutter</td><td>clamp(1rem, 5vw, 2rem)</td></tr>
-                    <tr><td>--wp--custom--spacing--stack</td><td>1.5rem</td></tr>
-                    <tr><td>--wp--custom--spacing--section</td><td>clamp(3rem, 10vw, 6rem)</td></tr>
-                    <tr><td>--wp--custom--line-height--tight</td><td>1.2</td></tr>
-                    <tr><td>--wp--custom--line-height--snug</td><td>1.35</td></tr>
-                    <tr><td>--wp--custom--line-height--normal</td><td>1.6</td></tr>
-                    <tr><td>--wp--custom--line-height--loose</td><td>1.8</td></tr>
-                    <tr><td>--wp--custom--border-radius--sm</td><td>4px</td></tr>
-                    <tr><td>--wp--custom--border-radius--md</td><td>8px</td></tr>
-                    <tr><td>--wp--custom--border-radius--lg</td><td>16px</td></tr>
-                    <tr><td>--wp--custom--border-radius--pill</td><td>9999px</td></tr>
-                    <tr><td>--wp--custom--transition--fast</td><td>150ms ease</td></tr>
-                    <tr><td>--wp--custom--transition--base</td><td>250ms ease</td></tr>
-                    <tr><td>--wp--custom--transition--slow</td><td>400ms ease</td></tr>
-                    <tr><td>--wp--custom--shadow--sm</td><td>0 1px 3px rgba(0,0,0,0.1)</td></tr>
-                    <tr><td>--wp--custom--shadow--md</td><td>0 4px 12px rgba(0,0,0,0.12)</td></tr>
-                    <tr><td>--wp--custom--shadow--lg</td><td>0 12px 32px rgba(0,0,0,0.16)</td></tr>
-                    <tr><td>--wp--custom--z-index--dropdown</td><td>10</td></tr>
-                    <tr><td>--wp--custom--z-index--overlay</td><td>100</td></tr>
-                    <tr><td>--wp--custom--z-index--modal</td><td>200</td></tr>
-                    <tr><td>--wp--custom--z-index--toast</td><td>300</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.abra-ds-table tbody tr').forEach(function (row) {
-            var cells = row.querySelectorAll('td');
-            if (cells.length < 2) return;
-            var prop = cells[0].textContent.trim();
-            var live = getComputedStyle(document.documentElement).getPropertyValue(prop).trim();
-            if (live) cells[1].textContent = live;
-        });
-    });
-    </script>
+    <!-- wp:buttons -->
+    <div class="wp-block-buttons">
+        <!-- wp:button -->
+        <div class="wp-block-button"><a class="wp-block-button__link wp-element-button">Button</a></div>
+        <!-- /wp:button -->
     </div>
-    <!-- /wp:html -->
+    <!-- /wp:buttons -->
+
+    <!-- wp:list -->
+    <ul class="wp-block-list">
+        <!-- wp:list-item -->
+        <li>Unordered list item one</li>
+        <!-- /wp:list-item -->
+        <!-- wp:list-item -->
+        <li>Unordered list item two</li>
+        <!-- /wp:list-item -->
+        <!-- wp:list-item -->
+        <li>Unordered list item three</li>
+        <!-- /wp:list-item -->
+    </ul>
+    <!-- /wp:list -->
+
+    <!-- wp:list {"ordered":true} -->
+    <ol class="wp-block-list">
+        <!-- wp:list-item -->
+        <li>Ordered list item one</li>
+        <!-- /wp:list-item -->
+        <!-- wp:list-item -->
+        <li>Ordered list item two</li>
+        <!-- /wp:list-item -->
+        <!-- wp:list-item -->
+        <li>Ordered list item three</li>
+        <!-- /wp:list-item -->
+    </ol>
+    <!-- /wp:list -->
+
+    <!-- wp:quote -->
+    <blockquote class="wp-block-quote">
+        <!-- wp:paragraph -->
+        <p>Good typography is invisible. Good design is obvious. Great design is transparent.</p>
+        <!-- /wp:paragraph -->
+        <cite>Joe Sparano</cite>
+    </blockquote>
+    <!-- /wp:quote -->
+
+    <!-- wp:code -->
+    <pre class="wp-block-code"><code>function hello( $name ) {
+    return 'Hello, ' . esc_html( $name ) . '!';
+}</code></pre>
+    <!-- /wp:code -->
+
+    <!-- wp:separator -->
+    <hr class="wp-block-separator has-alpha-channel-opacity"/>
+    <!-- /wp:separator -->
 
 </main>
 <!-- /wp:group -->

@@ -96,11 +96,13 @@ function abra_generate_child(string $slug, string $name): true|WP_Error
 
     // Root files
     $files = [
-        'style.css'          => abra_child_style_css($name),
-        'theme.json'         => abra_child_theme_json(),
-        'theme.example.json' => abra_child_theme_example_json(),
-        'functions.php'      => abra_child_functions_php(),
-        'acf-json/.gitkeep'  => '',
+        'style.css'                => abra_child_style_css($name),
+        'theme.json'               => abra_child_theme_json(),
+        'theme-json-reference.json' => abra_child_theme_reference_json(),
+        'functions.php'            => abra_child_functions_php(),
+        'CLAUDE.md'                => abra_child_claude_md($name),
+        'DESIGN.md'                => abra_child_design_md($name),
+        'acf-json/.gitkeep'        => '',
     ];
 
     foreach ($files as $path => $content) {
@@ -191,7 +193,7 @@ function abra_child_theme_json(): string
         'version' => 3,
         'settings' => [
             'custom' => [
-                '_comment' => 'Copy token groups from theme.example.json here to override Abra defaults.',
+                '_comment' => 'Copy token groups from theme-json-reference.json here to override Abra defaults.',
             ],
         ],
     ];
@@ -199,70 +201,110 @@ function abra_child_theme_json(): string
     return json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n";
 }
 
-function abra_child_theme_example_json(): string
+function abra_child_theme_reference_json(): string
 {
     return <<<'JSON'
 {
     "$schema": "https://schemas.wp.org/trunk/theme.json",
     "version": 3,
+
+    "_instructions": "This is a reference of all WordPress theme.json settings — not an active config file. Everything here is in its suppressed/empty/off state. Copy any section you need into your theme.json and fill in your values. Delete what you don't use.",
+
     "settings": {
+
+        "_note": "Each top-level key under settings maps to a WordPress feature area. Copy only the keys you need.",
+
+        "color": {
+            "_note": "palette items: { slug, color, name }. Set booleans to true to enable the feature in the editor.",
+            "palette": [],
+            "gradients": [],
+            "duotone": [],
+            "custom": false,
+            "customGradient": false,
+            "customDuotone": false,
+            "defaultPalette": false,
+            "defaultGradients": false,
+            "defaultDuotone": false,
+            "link": false,
+            "heading": false,
+            "button": false,
+            "caption": false,
+            "background": false,
+            "text": false
+        },
+
+        "typography": {
+            "_note": "fontFamilies items: { slug, name, fontFamily }. fontSizes items: { slug, name, size }.",
+            "fontFamilies": [],
+            "fontSizes": [],
+            "customFontSize": false,
+            "dropCap": false,
+            "fluid": false,
+            "fontStyle": false,
+            "fontWeight": false,
+            "letterSpacing": false,
+            "lineHeight": false,
+            "textDecoration": false,
+            "textTransform": false,
+            "writingMode": false
+        },
+
+        "spacing": {
+            "_note": "spacingSizes items: { slug, name, size }. units controls which units appear in the editor spacing pickers.",
+            "spacingSizes": [],
+            "customSpacingSize": false,
+            "margin": false,
+            "padding": false,
+            "blockGap": false,
+            "units": ["px", "em", "rem", "%", "vw", "vh"]
+        },
+
+        "shadow": {
+            "_note": "presets items: { slug, name, shadow }. shadow is a CSS box-shadow string, e.g. '0 2px 8px rgba(0,0,0,0.1)'.",
+            "presets": [],
+            "defaultPresets": false
+        },
+
+        "border": {
+            "color": false,
+            "radius": false,
+            "style": false,
+            "width": false
+        },
+
+        "dimensions": {
+            "aspectRatio": false,
+            "minHeight": false
+        },
+
+        "layout": {
+            "_note": "contentSize is the default content column width; wideSize is the wide-aligned width. Set as CSS length values, e.g. '720px' or 'clamp(16rem, 90vw, 56rem)'.",
+            "contentSize": "",
+            "wideSize": ""
+        },
+
         "custom": {
-
-            "viewport": {
-                "mobile":  "480px",
-                "tablet":  "782px",
-                "desktop": "1024px",
-                "wide":    "1280px"
-            },
-
-            "layout": {
-                "content": "720px",
-                "wide":    "1200px",
-                "gutter":  "clamp(1rem, 5vw, 2rem)"
-            },
-
-            "spacing": {
-                "stack":   "1.5rem",
-                "section": "clamp(3rem, 10vw, 6rem)"
-            },
-
-            "lineHeight": {
-                "tight":  "1.2",
-                "snug":   "1.35",
-                "normal": "1.6",
-                "loose":  "1.8"
-            },
-
-            "borderRadius": {
-                "sm":   "4px",
-                "md":   "8px",
-                "lg":   "16px",
-                "pill": "9999px"
-            },
-
-            "transition": {
-                "fast": "150ms ease",
-                "base": "250ms ease",
-                "slow": "400ms ease"
-            },
-
-            "shadow": {
-                "sm": "0 1px 3px rgba(0,0,0,0.1)",
-                "md": "0 4px 12px rgba(0,0,0,0.12)",
-                "lg": "0 12px 32px rgba(0,0,0,0.16)"
-            },
-
-            "zIndex": {
-                "dropdown": "10",
-                "overlay":  "100",
-                "modal":    "200",
-                "toast":    "300"
+            "_note": "Arbitrary key-value tokens. Naming formula: settings.custom.{group}.{key} → CSS var --wp--custom--{group}--{key}. camelCase keys become kebab-case. Example: custom.branding.primaryColor → --wp--custom--branding--primary-color.",
+            "branding": {
+                "primaryColor": "",
+                "secondaryColor": "",
+                "accentColor": ""
             }
-
         }
+
     }
 }
 JSON;
+}
+
+function abra_child_claude_md(string $name): string
+{
+    return "# {$name}\n\nA child theme built on [Abra](https://github.com/adamtrabold/abra).\n\n## Source of truth\n\nRead \`theme.json\` for all active token values — this is always current. Use \`theme-json-reference.json\` to see what WordPress settings are available to add.\n\n## FSE rules\n\nSee the parent theme's \`CLAUDE.md\` for full FSE rules and key failure modes.\n\n## Where to write changes\n\nAll changes for this project go in this child theme — not the parent Abra theme.\n- Tokens → theme.json\n- CSS → assets/css/global.css or assets/css/blocks.css\n- Blocks → blocks/\n- Patterns → patterns/\n";
+}
+
+function abra_child_design_md(string $name): string
+{
+    return "# {$name} — Design\n\nDesign decisions for this project live in \`theme.json\`. Read it before any visual work — this file is always the source of truth for what's actually defined.\n\nUse \`theme-json-reference.json\` as a copy-pasteable menu of available WordPress settings.\n\n## Color palette\n\n[Add your palette here — define colors in settings.color.palette in theme.json as named slugs, then document usage decisions below]\n\n## Typography\n\n[Add your type system here — define fonts in settings.typography.fontFamilies and sizes in settings.typography.fontSizes in theme.json]\n\n## Custom tokens\n\n[Document any settings.custom tokens you add — the formula is: settings.custom.{group}.{key} → --wp--custom--{group}--{key}]\n\n## Constraints and notes\n\n[Document design decisions, naming rationale, and rules you discover as you build]\n";
 }
 
 function abra_child_functions_php(): string
@@ -307,5 +349,23 @@ add_action('init', function (): void {
         register_block_type(dirname($block_json));
     }
 });
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 3. ENQUEUE CHILD THEME STYLES
+// Loads assets/css/global.css and assets/css/blocks.css if they exist.
+// Create either file to have it automatically picked up.
+// ─────────────────────────────────────────────────────────────────────────────
+add_action( 'wp_enqueue_scripts', function() {
+    $theme_dir = get_stylesheet_directory();
+    $theme_uri = get_stylesheet_directory_uri();
+    $version   = wp_get_theme()->get( 'Version' );
+
+    if ( file_exists( $theme_dir . '/assets/css/global.css' ) ) {
+        wp_enqueue_style( 'child-global', $theme_uri . '/assets/css/global.css', [], $version );
+    }
+    if ( file_exists( $theme_dir . '/assets/css/blocks.css' ) ) {
+        wp_enqueue_style( 'child-blocks', $theme_uri . '/assets/css/blocks.css', [], $version );
+    }
+} );
 PHP;
 }

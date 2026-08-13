@@ -7,8 +7,8 @@
         "useRootPaddingAwareAlignments": true,
 
         "layout": {
-            "contentSize": "720px",
-            "wideSize": "1200px",
+            "contentSize": "650px",
+            "wideSize": "1000px",
             "allowEditing": true,
             "allowCustomContentAndWideSize": true
         },
@@ -101,60 +101,6 @@
             "fontFamilies": []
         },
 
-        "custom": {
-
-            "viewport": {
-                "mobile":  "480px",
-                "tablet":  "782px",
-                "desktop": "1024px",
-                "wide":    "1280px"
-            },
-
-            "layout": {
-                "content": "720px",
-                "wide":    "1200px",
-                "gutter":  "clamp(1rem, 5vw, 2rem)"
-            },
-
-            "spacing": {
-                "stack":   "1.5rem",
-                "section": "clamp(3rem, 10vw, 6rem)"
-            },
-
-            "lineHeight": {
-                "tight":  "1.2",
-                "snug":   "1.35",
-                "normal": "1.6",
-                "loose":  "1.8"
-            },
-
-            "borderRadius": {
-                "sm":   "4px",
-                "md":   "8px",
-                "lg":   "16px",
-                "pill": "9999px"
-            },
-
-            "transition": {
-                "fast": "150ms ease",
-                "base": "250ms ease",
-                "slow": "400ms ease"
-            },
-
-            "shadow": {
-                "sm": "0 1px 3px rgba(0,0,0,0.1)",
-                "md": "0 4px 12px rgba(0,0,0,0.12)",
-                "lg": "0 12px 32px rgba(0,0,0,0.16)"
-            },
-
-            "zIndex": {
-                "dropdown": "10",
-                "overlay":  "100",
-                "modal":    "200",
-                "toast":    "300"
-            }
-        },
-
         "blocks": {
             "core/button": {
                 "border": {
@@ -174,13 +120,7 @@
 
     "styles": {
         "spacing": {
-            "blockGap": "0",
-            "padding": {
-                "top":    "0px",
-                "right":  "var:custom|layout|gutter",
-                "bottom": "0px",
-                "left":   "var:custom|layout|gutter"
-            }
+            "blockGap": "0"
         }
     },
 

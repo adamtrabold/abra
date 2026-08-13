@@ -30,7 +30,7 @@ Build directly in Abra, or create a child theme for your project to keep your wo
 
 On your dashboard and Appearance page, Abra shows a notice to create a child theme in one click. Type your project name, hit **Create Child Theme** — Abra generates a ready-to-edit theme, copies all the templates and parts into it, and activates it automatically.
 
-Your child theme includes a `theme.example.json` showing every token Abra defines. Copy any group into `theme.json` to override the defaults set by the Abra parent theme.
+Your child theme includes a `theme-json-reference.json` — a comprehensive, copy-pasteable reference of all WordPress theme.json settings. Copy any section into `theme.json` and fill in your values.
 
 ---
 
@@ -60,7 +60,7 @@ WordPress turns these into CSS custom properties you can use anywhere:
 .card { border-radius: var(--wp--custom--border-radius--md); }
 ```
 
-Visit `/design-system` on your site (logged in) to see every token rendered live.
+Visit `/abra-design-system` on your site (logged in) to see every token rendered live.
 
 
 > **Note:** Style changes made in the WordPress Appearance panel (Site Editor) are saved to the database, not to `theme.json`. They won't carry between environments unless the database travels with the files. Push your database when making changes via the WordPress Admin Editor, or use a plugin like [Create Block Theme](https://wordpress.org/plugins/create-block-theme/) to write Appearance panel changes back to a file that can be pushed.
