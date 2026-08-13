@@ -60,7 +60,7 @@ WordPress turns these into CSS custom properties you can use anywhere:
 .card { border-radius: var(--wp--custom--border-radius--md); }
 ```
 
-Visit `/abra-design-system` on your site (logged in) to see every token rendered live.
+Visit `/abra-design-system` on your site (logged in) to see every token rendered live. For a visual reference of all core blocks, the [WordPress Figma Community Kit](https://www.figma.com/community/file/1669854326293587407) is the official starting point for design work.
 
 
 > **Note:** Style changes made in the WordPress Appearance panel (Site Editor) are saved to the database, not to `theme.json`. They won't carry between environments unless the database travels with the files. Push your database when making changes via the WordPress Admin Editor, or use a plugin like [Create Block Theme](https://wordpress.org/plugins/create-block-theme/) to write Appearance panel changes back to a file that can be pushed.

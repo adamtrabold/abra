@@ -45,4 +45,6 @@ Once intent is clear, use this decision table:
 | Core WP block needing styling | Configure in child theme.json + blocks.css |
 | Visual override only | styles.blocks in child theme.json or blocks.css |
 
+The [WordPress Figma Kit](https://www.figma.com/community/file/1669854326293587407) provides official component representations for all core blocks — use it alongside this table.
+
 Content editors should be able to change per-page content → that content goes inside `wp:post-content` in the template. Structural and site-wide elements → template parts.

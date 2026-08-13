@@ -23,6 +23,8 @@ Use the DESIGN.md decision framework before writing any code.
 
 ## If working from a Figma design
 
+If the design uses WordPress core blocks or components, the [WordPress Figma Community Kit](https://www.figma.com/community/file/1669854326293587407) is the canonical reference for core block shapes, states, and component anatomy.
+
 Use the Figma Console MCP to read the source of truth:
 
 - `figma_get_file_data` — overall file structure and frame layout
