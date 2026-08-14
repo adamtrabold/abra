@@ -33,10 +33,10 @@ add_action('admin_notices', function (): void {
 				<path fill="#1c0e02" d="M518.67,638.64c0-1.09-.05-2.18-.13-3.26,64.66-3.82,124.49-12.15,176.35-23.94l-183.68,326.6h488.8l-201.96-359.1c56.09-24.42,89.31-54.74,89.31-87.58,0-47.14-68.47-89.08-174.79-115.85,106.32-26.77,174.79-68.7,174.79-115.85,0-80.84-201.3-146.38-449.62-146.38v230.46L244.4,0,0,434.55h437.73v119.31c-81.28-38.29-216.09-63.33-368.68-63.33v524.46h449.62l-229.39-247.19c136.9-25.39,229.39-73.71,229.39-129.15Z"/>
 			</svg>
 			<div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
-				<p style="margin:0;">Build directly in this theme, or generate a child theme to keep your project separate from Abra updates.</p>
-				<input type="text" name="abra_child_name" placeholder="Project name" style="width:180px;" required>
-				<button type="submit" class="button button-primary">Create Child Theme</button>
-				<a href="<?= $dismiss_url ?>" style="color:inherit;opacity:0.5;font-size:0.85em;text-decoration:none;">Dismiss</a>
+				<p style="margin:0;"><?php esc_html_e('Build directly in this theme, or generate a child theme to keep your project separate from Abra updates.', 'abra'); ?></p>
+				<input type="text" name="abra_child_name" placeholder="<?php esc_attr_e('Project name', 'abra'); ?>" style="width:180px;" required>
+				<button type="submit" class="button button-primary"><?php esc_html_e('Create Child Theme', 'abra'); ?></button>
+				<a href="<?= $dismiss_url ?>" style="color:inherit;opacity:0.5;font-size:0.85em;text-decoration:none;"><?php esc_html_e('Dismiss', 'abra'); ?></a>
 			</div>
 		</form>
 	</div>
@@ -60,7 +60,7 @@ add_action('admin_post_abra_create_child', function (): void {
 	check_admin_referer('abra_create_child', 'abra_nonce');
 
 	if (!current_user_can('switch_themes')) {
-		wp_die('You do not have permission to do this.');
+		wp_die(esc_html__('You do not have permission to do this.', 'abra'));
 	}
 
 	$name = sanitize_text_field(wp_unslash($_POST['abra_child_name'] ?? ''));
@@ -91,7 +91,11 @@ function abra_generate_child(string $slug, string $name): true|WP_Error
 	$child_dir  = dirname($parent_dir) . '/' . $slug;
 
 	if (is_dir($child_dir)) {
-		return new WP_Error('exists', "A theme folder named '{$slug}' already exists in wp-content/themes/.");
+		return new WP_Error('exists', sprintf(
+			/* translators: %s: theme folder slug */
+			__("A theme folder named '%s' already exists in wp-content/themes/.", 'abra'),
+			$slug
+		));
 	}
 
 	// Root files

@@ -1,0 +1,4 @@
+.git export-ignore
+.DS_Store export-ignore
+.github/ export-ignore
+.gitignore export-ignore

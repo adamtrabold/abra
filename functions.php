@@ -63,7 +63,7 @@ add_action('wp_enqueue_scripts', function (): void {
 }, 100);
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 5 + 6 + 7. INLINE BASELINE STYLES (single wp_head hook, priority 1)
+// 5 + 6 + 7. INLINE BASELINE STYLES (single enqueue hook, priority 20)
 //
 // 5. ADMIN BAR HEIGHT AS CSS CUSTOM PROPERTY
 //    WordPress hardcodes admin bar height with !important on html { margin-top }
@@ -81,62 +81,17 @@ add_action('wp_enqueue_scripts', function (): void {
 //
 // All three are combined into one hook call to minimise hook dispatch overhead.
 // ─────────────────────────────────────────────────────────────────────────────
-add_action('wp_head', function (): void {
-	echo '<style>
-		body { margin: 0; }
+add_action('wp_enqueue_scripts', function (): void {
+	$css = 'body { margin: 0; }
 		:root { --admin-bar-height: 0px; }
 		.admin-bar { --admin-bar-height: 32px; }
-		@media screen and (max-width: 782px) {
-			.admin-bar { --admin-bar-height: 46px; }
-		}
-		.wp-block-navigation .wp-block-navigation__submenu-container {
-			background-color: inherit;
-			color: inherit;
-			border: none;
-		}
-	</style>';
-}, 1);
+		@media screen and (max-width: 782px) { .admin-bar { --admin-bar-height: 46px; } }
+		.wp-block-navigation .wp-block-navigation__submenu-container { background-color: inherit; color: inherit; border: none; }';
+	wp_add_inline_style('abra-style', $css);
+}, 20);
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 8. ACF JSON SYNC
-// Directs ACF field group JSON to the theme's acf-json/ folder so field group
-// definitions travel with the theme in version control. The load path is also
-// registered so ACF reads from the same folder on import/sync.
-// ─────────────────────────────────────────────────────────────────────────────
-if (class_exists('ACF')) {
-	add_filter('acf/settings/save_json', fn () => get_template_directory() . '/acf-json');
-
-	add_filter('acf/settings/load_json', function (array $paths): array {
-		$paths[] = get_template_directory() . '/acf-json';
-		return $paths;
-	});
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// 9. AUTO-REGISTER ACF BLOCKS
-// Scans /blocks/ for any block.json file and registers it automatically.
-// Zero config — drop a folder into /blocks/ and it appears in the editor.
-// Each block.json is the single source of truth; no PHP registration needed
-// per block.
-// ─────────────────────────────────────────────────────────────────────────────
-add_action('init', function (): void {
-	if (!function_exists('acf_register_block_type')) {
-		return;
-	}
-
-	$blocks_dir = get_template_directory() . '/blocks/';
-
-	if (!is_dir($blocks_dir)) {
-		return;
-	}
-
-	foreach (glob($blocks_dir . '*/block.json') ?: [] as $block_json) {
-		register_block_type(dirname($block_json));
-	}
-});
-
-// ─────────────────────────────────────────────────────────────────────────────
-// 10. REGISTER PATTERN CATEGORY
+// 8. REGISTER PATTERN CATEGORY
 // Patterns shipped with Abra are grouped under a dedicated "Abra" category so
 // they don't get lost among core and plugin patterns in the inserter.
 // ─────────────────────────────────────────────────────────────────────────────
@@ -144,21 +99,4 @@ add_action('init', function (): void {
 	register_block_pattern_category('abra', ['label' => 'Abra']);
 });
 
-// ─────────────────────────────────────────────────────────────────────────────
-// 11. PLUGIN RECOMMENDATIONS
-// Recommends ACF via a dismissible admin notice. The library is bundled in
-// lib/ — no Composer required. The notice is dismissed forever (not 7-day
-// default) so it doesn't re-nag developers who skip ACF intentionally.
-// ─────────────────────────────────────────────────────────────────────────────
-if (is_admin()) {
-	require_once get_template_directory() . '/lib/wp-dismiss-notice.php';
-	require_once get_template_directory() . '/lib/wp-dependency-installer-skin.php';
-	require_once get_template_directory() . '/lib/wp-dependency-installer.php';
-
-	add_filter('wp_dependency_timeout', fn() => 'forever');
-
-	WP_Dependency_Installer::instance(get_template_directory())->run();
-}
-
 // First-run setup lives in lib/setup.php.
-

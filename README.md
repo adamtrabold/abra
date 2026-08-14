@@ -1,13 +1,13 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="/.github/abra_logo_light.svg">
-  <source media="(prefers-color-scheme: light)" srcset="/.github/abra_logo_dark.svg">
-  <img alt="Abra" src="/.github/abra_logo_dark.svg" width="120">
+  <source media="(prefers-color-scheme: dark)" srcset="/_dev/github/abra_logo_light.svg">
+  <source media="(prefers-color-scheme: light)" srcset="/_dev/github/abra_logo_dark.svg">
+  <img alt="Abra" src="/_dev/github/abra_logo_dark.svg" width="120">
 </picture>
 
 # What's Abra?
 Abra is a starter WordPress block theme reset button for the Gutenberg era. Zero design opinions, built for creators of custom-rolled, bespoke experiences. Every WordPress default design decision has been explicitly _\*poofed\*_ away, [Andy Bell's Modern CSS Reset](https://andy-bell.co.uk/a-more-modern-css-reset/) disappears the browser-injected junk — you get a clean slate.
 
-Only necessary templates, blocks, and patterns to get started are provided, everything else is up to you. ACF is bundled for ease of content configuration as you start building.
+Only necessary templates and patterns to get started are provided, everything else is up to you.
 
 ---
 
@@ -24,17 +24,16 @@ git clone https://github.com/adamtrabold/abra
 
 Then activate the theme inside of WP-Admin at **Appearance → Themes**. 
 
-From there Abra sets up your permalinks and creates Home, Blog, and Design System pages automatically. An admin notice will prompt you to install ACF, as well as ask if you want to create a child theme automatically.
+From there, Abra walks you through a one-time setup to configure your pages, install ACF, and optionally create a child theme — all in one place, nothing happens without you saying so.
 
 ------
 
 ## Starting a project
 
-Once Abra is activated, you'll see the following minimal set of Blocks, Patterns, and Templates to get started. Duplicate any block folder or pattern file to create a new one — both register themselves automatically.
+Once Abra is activated, you'll see the following minimal set of Patterns and Templates to get started. Duplicate any pattern file to create a new one — it registers automatically.
 
 | | Name | Description |
 |---|---|---|
-| Block | `example-card` | ACF block starter — renders via `render.php`, saves fields to `acf-json/` |
 | Pattern | `example-hero` | Minimal hero section starter |
 | Template | `index.html` | Blog/home feed |
 | Template | `single.html` | Single post |
@@ -56,12 +55,11 @@ The child theme automatically gets its own set of files copied over for easy ove
 | `style.css` | Theme header pointing back to Abra as the parent |
 | `theme.json` | Minimal empty config — add your tokens here |
 | `theme-json-reference.json` | Copy-pasteable reference of every WordPress `theme.json` setting |
-| `functions.php` | ACF JSON sync, block auto-registration, and CSS auto-enqueue wired up |
+| `functions.php` | ACF JSON sync and CSS auto-enqueue wired up |
 | `CLAUDE.md` / `DESIGN.md` | Context stubs scoped to the child project |
 | `acf-json/` | Empty directory for ACF field group sync |
 | `/templates/` | All templates except `design-system.html` (parent dev tool) |
 | `/parts/` | All template parts |
-| `/blocks/` | All blocks — `abra/` namespace rewritten to your project slug |
 | `/patterns/` | All patterns — `abra/` namespace rewritten to your project slug |
 
 ---
@@ -112,7 +110,7 @@ Open the theme in Claude Code and the slash commands appear automatically. Child
 
 ## Content design via ACF
 
-[Advanced Custom Fields](https://www.advancedcustomfields.com/) is a WordPress plugin that makes it easy to customize the content of your site — things like a hero image, a testimonial, or a team member card. Abra comes with a quick install button out of the box.
+[Advanced Custom Fields](https://www.advancedcustomfields.com/) is a WordPress plugin that makes it easy to customize the content of your site — things like a hero image, a testimonial, or a team member card. You can install ACF directly from the Abra setup wizard when you first activate the theme.
 
 ---
 
@@ -124,11 +122,3 @@ If Abra is a reset WordPress theme, the [Abra Figma Kit](https://www.figma.com/c
 - **WP Blocks** — all core blocks in their reset state, named `core/block-name`
 - **Templates** — FSE template skeletons (Single, Page, Archive, 404, Search) as skeleton + visual pairs
 - **Variables** — token collections mapped to WP `theme.json` categories (spacing, shadows, color, typography)
-
----
-
-## Requirements
-
-- WordPress 6.4+
-- PHP 8.0+
-- ACF Free or ACF Pro

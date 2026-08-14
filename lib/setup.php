@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 // ─────────────────────────────────────────────────────────────────────────────
 // FIRST-RUN SETUP
-// Runs on theme activation. Creates scaffold pages, detects conflicts with
-// existing WP settings, and surfaces a one-time resolution UI for anything
-// that would change existing site configuration. No UI on fresh installs.
+// On activation, flags that setup is needed. A dedicated admin page collects
+// explicit consent before creating pages or changing any settings.
 // ─────────────────────────────────────────────────────────────────────────────
 
-function abra_get_or_create_page(string $title, string $slug, string $status): int {
+function abra_get_or_create_page(string $title, string $slug, string $status): int
+{
 	$existing = get_page_by_path($slug, OBJECT, 'page');
 	if ($existing) {
 		return $existing->ID;
@@ -33,192 +33,189 @@ add_action('after_switch_theme', function (): void {
 	if (get_option('abra_setup_complete')) {
 		return;
 	}
-
-	// Create Home and Blog pages — silently skipped if slug already exists.
-	$home_id = abra_get_or_create_page('Home', 'home', 'publish');
-	$blog_id = abra_get_or_create_page('Blog', 'blog', 'publish');
-
-	// Design System always lives at abra-design-system for clarity.
-	$ds_existing = get_page_by_path('abra-design-system', OBJECT, 'page');
-	if (!$ds_existing) {
-		$trashed_ds = get_posts(['name' => 'abra-design-system', 'post_type' => 'page', 'post_status' => 'trash', 'numberposts' => 1]);
-		$ds_existing = $trashed_ds ? $trashed_ds[0] : null;
-	}
-
-	if (!$ds_existing) {
-		$ds_id = (int) wp_insert_post([
-			'post_title'  => 'Design System',
-			'post_name'   => 'abra-design-system',
-			'post_type'   => 'page',
-			'post_status' => 'private',
-		]);
-		update_post_meta($ds_id, '_wp_page_template', 'design-system');
-	} else {
-		$ds_id = (int) $ds_existing->ID;
-	}
-
-	// Detect conflicts with existing WP settings.
-	$conflicts = [];
-
-	if ($ds_existing) {
-		$conflicts['design_system'] = ['ds_id' => $ds_id];
-	}
-
-	if (get_option('show_on_front') === 'page' && (int) get_option('page_on_front') > 0) {
-		$current_front            = get_post((int) get_option('page_on_front'));
-		$conflicts['front_page']  = ['current_title' => $current_front ? $current_front->post_title : ''];
-	}
-
-	if ((int) get_option('page_for_posts') > 0) {
-		$current_blog            = get_post((int) get_option('page_for_posts'));
-		$conflicts['blog_page']  = ['current_title' => $current_blog ? $current_blog->post_title : ''];
-	}
-
-	if (get_option('permalink_structure') !== '/%postname%/') {
-		$conflicts['permalink'] = true;
-	}
-
-	if (empty($conflicts)) {
-		// Fresh install — apply everything silently.
-		global $wp_rewrite;
-		$wp_rewrite->set_permalink_structure('/%postname%/');
-		flush_rewrite_rules();
-		update_option('show_on_front', 'page');
-		update_option('page_on_front', $home_id);
-		update_option('page_for_posts', $blog_id);
-		update_option('abra_setup_complete', true);
-		return;
-	}
-
-	// Store conflict state for the resolution UI.
-	set_transient('abra_setup_pending', [
-		'conflicts' => $conflicts,
-		'home_id'   => $home_id,
-		'blog_id'   => $blog_id,
-		'ds_id'     => $ds_id,
-	], HOUR_IN_SECONDS);
+	set_transient('abra_setup_needed', true, DAY_IN_SECONDS);
 });
 
-
 // ─────────────────────────────────────────────────────────────────────────────
-// CONFLICT RESOLUTION UI
-// Admin notice rendered as a self-contained form. Only appears when conflicts
-// were detected on activation. Each question only renders if it applies.
+// ADMIN NOTICE
+// Shown on all admin pages until setup is complete.
 // ─────────────────────────────────────────────────────────────────────────────
 
 add_action('admin_notices', function (): void {
-	if (get_option('abra_setup_complete') || !current_user_can('manage_options')) {
+	if (get_option('abra_setup_complete') || !get_transient('abra_setup_needed')) {
 		return;
 	}
-
-	$pending = get_transient('abra_setup_pending');
-	if (!$pending) {
+	if (!current_user_can('manage_options')) {
 		return;
 	}
-
-	$conflicts = $pending['conflicts'];
-
+	$setup_url = esc_url(admin_url('themes.php?page=abra-setup'));
 	?>
-	<div class="notice notice-info" style="padding: 20px 24px; max-width: 620px;">
-		<h3 style="margin: 0 0 6px;">Finish setting up Abra</h3>
-		<p style="margin: 0 0 20px; color: #666;">Abra found some existing settings. Choose what to do, then click <strong>Apply</strong>.</p>
-
-		<form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
-			<?php wp_nonce_field('abra_setup_resolve', 'abra_nonce'); ?>
-			<input type="hidden" name="action" value="abra_setup_resolve">
-
-			<?php if (isset($conflicts['design_system'])): ?>
-			<fieldset style="margin-bottom: 20px; border: 1px solid #ddd; border-radius: 4px; padding: 14px 16px;">
-				<legend style="font-weight: 600; padding: 0 4px;">A page already exists at <code>/abra-design-system/</code>. What should we do?</legend>
-				<label style="display: block; margin-bottom: 6px;">
-					<input type="radio" name="design_system" value="keep" checked> Keep the existing page
-				</label>
-				<label style="display: block;">
-					<input type="radio" name="design_system" value="replace"> Replace it with Abra's blank design system page
-				</label>
-			</fieldset>
-			<?php endif; ?>
-
-			<?php if (isset($conflicts['front_page'])): ?>
-			<fieldset style="margin-bottom: 20px; border: 1px solid #ddd; border-radius: 4px; padding: 14px 16px;">
-				<legend style="font-weight: 600; padding: 0 4px;">Front page</legend>
-				<p style="margin: 0 0 10px;">Your front page is currently set to show <strong><?php echo esc_html($conflicts['front_page']['current_title']); ?></strong>. Switch it to show the new <strong>Home</strong> page instead?</p>
-				<label style="display: block; margin-bottom: 6px;"><input type="radio" name="front_page" value="no" checked> No, keep my current front page</label>
-				<label style="display: block;"><input type="radio" name="front_page" value="yes"> Yes, switch to the new Home page</label>
-			</fieldset>
-			<?php endif; ?>
-
-			<?php if (isset($conflicts['blog_page'])): ?>
-			<fieldset style="margin-bottom: 20px; border: 1px solid #ddd; border-radius: 4px; padding: 14px 16px;">
-				<legend style="font-weight: 600; padding: 0 4px;">Blog page</legend>
-				<p style="margin: 0 0 10px;">Your blog posts are currently displayed on <strong><?php echo esc_html($conflicts['blog_page']['current_title']); ?></strong>. Display them on the new <strong>Blog</strong> page instead?</p>
-				<label style="display: block; margin-bottom: 6px;"><input type="radio" name="blog_page" value="no" checked> No, keep my current blog page</label>
-				<label style="display: block;"><input type="radio" name="blog_page" value="yes"> Yes, switch to the new Blog page</label>
-			</fieldset>
-			<?php endif; ?>
-
-			<?php if (isset($conflicts['permalink'])): ?>
-			<fieldset style="margin-bottom: 20px; border: 1px solid #ddd; border-radius: 4px; padding: 14px 16px;">
-				<legend style="font-weight: 600; padding: 0 4px;">Permalink structure</legend>
-				<p style="margin: 0 0 10px;">Switch permalink structure to <code>/%postname%/</code>, creating clean URLs like <code>/page-name/</code>?</p>
-				<label style="display: block; margin-bottom: 6px;"><input type="radio" name="permalink" value="no" checked> No, keep my current permalink structure</label>
-				<label style="display: block;"><input type="radio" name="permalink" value="yes"> Yes, switch to clean URLs</label>
-			</fieldset>
-			<?php endif; ?>
-
-			<p style="margin: 0;"><button type="submit" class="button button-primary">Apply</button></p>
-		</form>
+	<div class="notice notice-info">
+		<p>
+			<?php esc_html_e('Abra is activated.', 'abra'); ?>
+			<a href="<?php echo $setup_url; ?>" class="button button-primary" style="margin-left:8px;">
+				<?php esc_html_e('Set up your project →', 'abra'); ?>
+			</a>
+		</p>
 	</div>
 	<?php
 });
 
-
 // ─────────────────────────────────────────────────────────────────────────────
-// RESOLUTION HANDLER
-// Processes the conflict form and applies the user's choices.
+// SUCCESS NOTICE
 // ─────────────────────────────────────────────────────────────────────────────
 
-add_action('admin_post_abra_setup_resolve', function (): void {
-	if (!current_user_can('manage_options') || !check_admin_referer('abra_setup_resolve', 'abra_nonce')) {
-		wp_die('Unauthorized');
+add_action('admin_notices', function (): void {
+	if (($_GET['abra_setup'] ?? '') !== 'done') {
+		return;
+	}
+	?>
+	<div class="notice notice-success is-dismissible">
+		<p><?php esc_html_e('Abra is set up. Happy building.', 'abra'); ?></p>
+	</div>
+	<?php
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SETUP PAGE
+// ─────────────────────────────────────────────────────────────────────────────
+
+add_action('admin_menu', function (): void {
+	add_theme_page(
+		__('Set Up Abra', 'abra'),
+		__('Set Up Abra', 'abra'),
+		'manage_options',
+		'abra-setup',
+		'abra_render_setup_page'
+	);
+});
+
+function abra_render_setup_page(): void
+{
+	if (!current_user_can('manage_options')) {
+		return;
 	}
 
-	$pending = get_transient('abra_setup_pending');
-	if (!$pending) {
-		wp_redirect(admin_url());
-		exit;
+	$acf_active   = class_exists('ACF');
+	$acf_install_url = wp_nonce_url(
+		admin_url('update.php?action=install-plugin&plugin=advanced-custom-fields'),
+		'install-plugin_advanced-custom-fields'
+	);
+	?>
+	<div class="wrap" style="max-width:640px;">
+		<h1><?php esc_html_e('Set Up Abra', 'abra'); ?></h1>
+		<p><?php esc_html_e('Choose what to set up. Everything here is optional — you can skip any step.', 'abra'); ?></p>
+
+		<form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+			<?php wp_nonce_field('abra_setup', 'abra_setup_nonce'); ?>
+			<input type="hidden" name="action" value="abra_setup">
+
+			<?php // ── Section 1: ACF ───────────────────────────────────────── ?>
+			<div style="border:1px solid #ddd;border-radius:4px;padding:20px 24px;margin-bottom:20px;">
+				<h2 style="margin-top:0;"><?php esc_html_e('Advanced Custom Fields', 'abra'); ?></h2>
+				<?php if ($acf_active): ?>
+					<p style="color:#46b450;">&#10003; <?php esc_html_e('ACF is already installed.', 'abra'); ?></p>
+				<?php else: ?>
+					<p><?php esc_html_e('ACF lets you add structured content fields to your pages and posts — hero images, testimonials, team members, and more.', 'abra'); ?></p>
+					<a href="<?php echo esc_url($acf_install_url); ?>" class="button button-secondary">
+						<?php esc_html_e('Install ACF', 'abra'); ?>
+					</a>
+				<?php endif; ?>
+			</div>
+
+			<?php // ── Section 2: Child theme ───────────────────────────────── ?>
+			<div style="border:1px solid #ddd;border-radius:4px;padding:20px 24px;margin-bottom:20px;">
+				<h2 style="margin-top:0;"><?php esc_html_e('Child theme', 'abra'); ?></h2>
+				<p><?php esc_html_e('A child theme keeps your project files separate from Abra so future theme updates don\'t overwrite your work.', 'abra'); ?></p>
+				<label style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+					<input type="checkbox" name="create_child" value="1" checked>
+					<?php esc_html_e('Create a child theme for this project', 'abra'); ?>
+				</label>
+				<label>
+					<?php esc_html_e('Project name', 'abra'); ?><br>
+					<input
+						type="text"
+						name="child_theme_name"
+						placeholder="<?php esc_attr_e('My Project', 'abra'); ?>"
+						style="width:100%;max-width:320px;margin-top:4px;"
+					>
+				</label>
+			</div>
+
+			<?php // ── Section 3: Starter pages ─────────────────────────────── ?>
+			<div style="border:1px solid #ddd;border-radius:4px;padding:20px 24px;margin-bottom:24px;">
+				<h2 style="margin-top:0;"><?php esc_html_e('Starter pages', 'abra'); ?></h2>
+
+				<label style="display:flex;align-items:flex-start;gap:8px;margin-bottom:12px;">
+					<input type="checkbox" name="create_pages" value="1" checked style="margin-top:3px;">
+					<span>
+						<?php esc_html_e('Create Home and Blog pages and set as the front page', 'abra'); ?><br>
+						<small style="color:#666;"><?php esc_html_e('Also sets permalink structure to /%postname%/', 'abra'); ?></small>
+					</span>
+				</label>
+
+				<label style="display:flex;align-items:flex-start;gap:8px;">
+					<input type="checkbox" name="create_design_system" value="1" checked style="margin-top:3px;">
+					<span>
+						<?php esc_html_e('Create Design System page', 'abra'); ?><br>
+						<small style="color:#666;"><?php esc_html_e('Private page at /abra-design-system/ — shows HTML elements at browser defaults.', 'abra'); ?></small>
+					</span>
+				</label>
+			</div>
+
+			<p>
+				<button type="submit" class="button button-primary button-large">
+					<?php esc_html_e('Set Up Abra', 'abra'); ?>
+				</button>
+				<a href="<?php echo esc_url(admin_url()); ?>" style="margin-left:12px;color:#666;">
+					<?php esc_html_e('Skip for now', 'abra'); ?>
+				</a>
+			</p>
+		</form>
+	</div>
+	<?php
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// FORM HANDLER
+// ─────────────────────────────────────────────────────────────────────────────
+
+add_action('admin_post_abra_setup', function (): void {
+	if (!current_user_can('manage_options') || !check_admin_referer('abra_setup', 'abra_setup_nonce')) {
+		wp_die(esc_html__('Unauthorized.', 'abra'));
 	}
 
-	$conflicts = $pending['conflicts'];
-	$home_id   = $pending['home_id'];
-	$blog_id   = $pending['blog_id'];
-	$ds_id     = $pending['ds_id'];
-
-	// Design system — replace clears content and re-assigns template.
-	if (isset($conflicts['design_system']) && ($_POST['design_system'] ?? 'keep') === 'replace') {
-		wp_update_post(['ID' => $ds_id, 'post_status' => 'private', 'post_content' => '']);
-		update_post_meta($ds_id, '_wp_page_template', 'design-system');
+	// Child theme
+	if (!empty($_POST['create_child'])) {
+		$name = sanitize_text_field(wp_unslash($_POST['child_theme_name'] ?? ''));
+		if ($name && function_exists('abra_generate_child')) {
+			$slug   = sanitize_title($name);
+			$result = abra_generate_child($slug, $name);
+			if (!is_wp_error($result)) {
+				switch_theme($slug);
+			}
+		}
 	}
 
-	// Front page — only change if user said yes, or if no conflict (fresh).
-	if (!isset($conflicts['front_page']) || ($_POST['front_page'] ?? 'no') === 'yes') {
+	// Starter pages
+	if (!empty($_POST['create_pages'])) {
+		$home_id = abra_get_or_create_page(__('Home', 'abra'), 'home', 'publish');
+		$blog_id = abra_get_or_create_page(__('Blog', 'abra'), 'blog', 'publish');
 		update_option('show_on_front', 'page');
 		update_option('page_on_front', $home_id);
-	}
-
-	// Blog page.
-	if (!isset($conflicts['blog_page']) || ($_POST['blog_page'] ?? 'no') === 'yes') {
 		update_option('page_for_posts', $blog_id);
-	}
-
-	// Permalink structure.
-	if (!isset($conflicts['permalink']) || ($_POST['permalink'] ?? 'no') === 'yes') {
 		global $wp_rewrite;
 		$wp_rewrite->set_permalink_structure('/%postname%/');
 		flush_rewrite_rules();
 	}
 
-	delete_transient('abra_setup_pending');
+	// Design system page
+	if (!empty($_POST['create_design_system'])) {
+		$ds_id = abra_get_or_create_page(__('Design System', 'abra'), 'abra-design-system', 'private');
+		update_post_meta($ds_id, '_wp_page_template', 'design-system');
+	}
+
+	delete_transient('abra_setup_needed');
 	update_option('abra_setup_complete', true);
 
 	wp_redirect(admin_url('index.php?abra_setup=done'));
