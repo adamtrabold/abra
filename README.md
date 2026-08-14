@@ -30,11 +30,26 @@ From there Abra sets up your permalinks and creates Home, Blog, and Design Syste
 
 ## Starting a project
 
-Build directly in Abra, or create a child theme for your project to keep your work separate from future Abra updates.
+Once Abra is activated, you'll see the following minimal set of Blocks, Patterns, and Templates to get started. Duplicate any block folder or pattern file to create a new one — both register themselves automatically.
 
-On your dashboard and Appearance page, Abra shows a notice to create a child theme in one click. Type your project name, hit **Create Child Theme** — Abra generates a ready-to-edit theme and activates it automatically.
+| | Name | Description |
+|---|---|---|
+| Block | `example-card` | ACF block starter — renders via `render.php`, saves fields to `acf-json/` |
+| Pattern | `example-hero` | Minimal hero section starter |
+| Template | `index.html` | Blog/home feed |
+| Template | `single.html` | Single post |
+| Template | `page.html` | Static page |
+| Template | `archive.html` | Category, tag, and date archives |
+| Template | `404.html` | Not found |
+| Template | `design-system.html` | `/abra-design-system` reference page — HTML elements at browser defaults |
+| Part | `header.html` | Shared header |
+| Part | `footer.html` | Shared footer |
 
-The child theme gets:
+You can build directly in Abra, or create a child theme for your project to keep your work separate from future Abra updates.
+
+If a child theme is not active, Abra shows a notice to create one in a single click on your dashboard and Appearance page. Type your project name, hit **Create Child Theme** — Abra generates a ready-to-edit theme and activates it automatically.
+
+The child theme automatically gets its own set of files copied over for easy overwriting:
 
 | | What |
 |---|---|
@@ -71,25 +86,6 @@ If Abra is a reset WordPress theme, the [Abra Figma Kit](https://www.figma.com/c
 - **WP Blocks** — all core blocks in their reset state, named `core/block-name`
 - **Templates** — FSE template skeletons (Single, Page, Archive, 404, Search) as skeleton + visual pairs
 - **Variables** — token collections mapped to WP `theme.json` categories (spacing, shadows, color, typography)
-
----
-
-## Blocks and patterns
-
-Duplicate any block folder or pattern file to create a new one — both register themselves automatically.
-
-| | Name | Description |
-|---|---|---|
-| Block | `example-card` | ACF block starter — renders via `render.php`, saves fields to `acf-json/` |
-| Pattern | `example-hero` | Minimal hero section starter |
-| Template | `index.html` | Blog/home feed |
-| Template | `single.html` | Single post |
-| Template | `page.html` | Static page |
-| Template | `archive.html` | Category, tag, and date archives |
-| Template | `404.html` | Not found |
-| Template | `design-system.html` | `/abra-design-system` reference page — HTML elements at browser defaults |
-| Part | `header.html` | Shared header |
-| Part | `footer.html` | Shared footer |
 
 ---
 
