@@ -101,8 +101,6 @@ Visit `/abra-design-system` on your site (logged in) to see HTML elements in the
 
 [Advanced Custom Fields](https://www.advancedcustomfields.com/) is a WordPress plugin that makes it easy to customize the content of your site — things like a hero image, a testimonial, or a team member card. Abra comes with a quick install button out of the box.
 
-Create field groups in **Custom Fields** in your WordPress admin. They save automatically as files inside your theme so they're always part of your project and travel with it.
-
 ---
 
 ## Requirements
