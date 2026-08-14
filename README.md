@@ -67,7 +67,7 @@ A starter pattern lives in `/patterns/example-hero.php` — duplicate and edit.
 
 ## Style tokens
 
-Since you can edit a theme in code or in the WordPress admin, Design tokens live in two places inside `theme.json`, depending on whether the block editor inside of WP-Admin needs to expose them as controls:
+Since you can edit your site's theme in code or in the WordPress admin, Design tokens live in two places inside `theme.json`, depending on whether the block editor inside of WP-Admin needs to expose them as controls:
 
 **Editor controls** (color swatches, font pickers, size presets) → named arrays in `settings`:
 - Colors → `settings.color.palette`
