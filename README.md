@@ -48,7 +48,7 @@ Open the theme in Claude Code and the slash commands appear automatically. Child
 
 ## Figma kit
 
-The [Abra Figma Kit](https://www.figma.com/community/file/1669854326293587407) is a Figma file mapping 1:1 with every HTML element and WordPress core block that comes with Abra. Styles, components, blocks, and templates are exactly as they render with zero theme styling applied — perfect for starting your new design, and easy for LLMs to understand and translate forward.
+If Abra is a reset WordPress theme, the [Abra Figma Kit](https://www.figma.com/community/file/1669854326293587407) is the corresponding reset Figma file. It maps 1:1 with every HTML element and WordPress core block that comes with Abra, with zero theme styling applied — perfect for starting your new design, and easy for LLMs to understand and translate forward...some may say it's magical?
 
 - **HTML Elements** — every element at browser UA defaults (no Abra styling applied)
 - **WP Blocks** — all core blocks in their reset state, named `core/block-name`
