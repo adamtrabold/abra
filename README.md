@@ -67,7 +67,7 @@ A starter pattern lives in `/patterns/example-hero.php` — duplicate and edit.
 
 ## Style tokens
 
-Design tokens live in two places inside `theme.json`, depending on whether the block editor needs to expose them as controls:
+Since you can edit a theme in code or in the WordPress admin, Design tokens live in two places inside `theme.json`, depending on whether the block editor inside of WP-Admin needs to expose them as controls:
 
 **Editor controls** (color swatches, font pickers, size presets) → named arrays in `settings`:
 - Colors → `settings.color.palette`
@@ -76,7 +76,7 @@ Design tokens live in two places inside `theme.json`, depending on whether the b
 - Spacing → `settings.spacing.spacingSizes`
 - Shadows → `settings.shadow.presets`
 
-**Arbitrary CSS values** (border radius, transitions, z-index — anything the editor doesn't need to surface) → `settings.custom.{group}.{key}`, which WordPress auto-generates as `--wp--custom--{group}--{key}` CSS custom properties:
+**Arbitrary CSS values** (border radius, transitions, z-index — anything the editor doesn't need to surface) → `settings.custom.{group}.{key}`, which WordPress then auto-generates as `--wp--custom--{group}--{key}` CSS custom properties:
 
 ```json
 "custom": {
@@ -88,7 +88,7 @@ Design tokens live in two places inside `theme.json`, depending on whether the b
 .card { border-radius: var(--wp--custom--border-radius--md); }
 ```
 
-Your child theme's `theme-json-reference.json` has a full menu of every available `settings` option — copy what you need and fill in values.
+Your child theme's `theme-json-reference.json` has a full menu of every available `settings` option — simply copy what you need and fill in values (or have an agent do it).
 
 Visit `/abra-design-system` on your site (logged in) to see HTML elements in their reset state.
 
