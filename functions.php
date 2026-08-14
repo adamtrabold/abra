@@ -12,10 +12,10 @@ require_once get_template_directory() . '/lib/setup.php';
 // add_editor_style(); block themes skip the classic style queue.
 // ─────────────────────────────────────────────────────────────────────────────
 add_action('after_setup_theme', function (): void {
-    add_theme_support('wp-block-styles');
-    add_theme_support('align-wide');
-    add_theme_support('responsive-embeds');
-    add_editor_style('assets/css/editor.css');
+	add_theme_support('wp-block-styles');
+	add_theme_support('align-wide');
+	add_theme_support('responsive-embeds');
+	add_editor_style('assets/css/editor.css');
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -25,22 +25,22 @@ add_action('after_setup_theme', function (): void {
 // exist, so this works in new installs before those files are built.
 // ─────────────────────────────────────────────────────────────────────────────
 add_action('wp_enqueue_scripts', function (): void {
-    $theme   = wp_get_theme();
-    $version = $theme->get('Version');
+	$theme   = wp_get_theme();
+	$version = $theme->get('Version');
 
-    wp_enqueue_style('abra-style', get_stylesheet_uri(), [], $version);
+	wp_enqueue_style('abra-style', get_stylesheet_uri(), [], $version);
 
-    $css_files = [
-        'abra-global' => '/assets/css/global.css',
-        'abra-blocks' => '/assets/css/blocks.css',
-    ];
+	$css_files = [
+		'abra-global' => '/assets/css/global.css',
+		'abra-blocks' => '/assets/css/blocks.css',
+	];
 
-    foreach ($css_files as $handle => $path) {
-        $full_path = get_template_directory() . $path;
-        if (file_exists($full_path)) {
-            wp_enqueue_style($handle, get_template_directory_uri() . $path, ['abra-style'], $version);
-        }
-    }
+	foreach ($css_files as $handle => $path) {
+		$full_path = get_template_directory() . $path;
+		if (file_exists($full_path)) {
+			wp_enqueue_style($handle, get_template_directory_uri() . $path, ['abra-style'], $version);
+		}
+	}
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -59,7 +59,7 @@ add_filter('should_load_separate_core_block_assets', '__return_true');
 // structural concerns like alignment, spacing, and group/columns layout.
 // ─────────────────────────────────────────────────────────────────────────────
 add_action('wp_enqueue_scripts', function (): void {
-    wp_dequeue_style('wp-block-library-theme');
+	wp_dequeue_style('wp-block-library-theme');
 }, 100);
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -82,19 +82,19 @@ add_action('wp_enqueue_scripts', function (): void {
 // All three are combined into one hook call to minimise hook dispatch overhead.
 // ─────────────────────────────────────────────────────────────────────────────
 add_action('wp_head', function (): void {
-    echo '<style>
-        body { margin: 0; }
-        :root { --admin-bar-height: 0px; }
-        .admin-bar { --admin-bar-height: 32px; }
-        @media screen and (max-width: 782px) {
-            .admin-bar { --admin-bar-height: 46px; }
-        }
-        .wp-block-navigation .wp-block-navigation__submenu-container {
-            background-color: inherit;
-            color: inherit;
-            border: none;
-        }
-    </style>';
+	echo '<style>
+		body { margin: 0; }
+		:root { --admin-bar-height: 0px; }
+		.admin-bar { --admin-bar-height: 32px; }
+		@media screen and (max-width: 782px) {
+			.admin-bar { --admin-bar-height: 46px; }
+		}
+		.wp-block-navigation .wp-block-navigation__submenu-container {
+			background-color: inherit;
+			color: inherit;
+			border: none;
+		}
+	</style>';
 }, 1);
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -104,12 +104,12 @@ add_action('wp_head', function (): void {
 // registered so ACF reads from the same folder on import/sync.
 // ─────────────────────────────────────────────────────────────────────────────
 if (class_exists('ACF')) {
-    add_filter('acf/settings/save_json', fn () => get_template_directory() . '/acf-json');
+	add_filter('acf/settings/save_json', fn () => get_template_directory() . '/acf-json');
 
-    add_filter('acf/settings/load_json', function (array $paths): array {
-        $paths[] = get_template_directory() . '/acf-json';
-        return $paths;
-    });
+	add_filter('acf/settings/load_json', function (array $paths): array {
+		$paths[] = get_template_directory() . '/acf-json';
+		return $paths;
+	});
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -120,19 +120,19 @@ if (class_exists('ACF')) {
 // per block.
 // ─────────────────────────────────────────────────────────────────────────────
 add_action('init', function (): void {
-    if (!function_exists('acf_register_block_type')) {
-        return;
-    }
+	if (!function_exists('acf_register_block_type')) {
+		return;
+	}
 
-    $blocks_dir = get_template_directory() . '/blocks/';
+	$blocks_dir = get_template_directory() . '/blocks/';
 
-    if (!is_dir($blocks_dir)) {
-        return;
-    }
+	if (!is_dir($blocks_dir)) {
+		return;
+	}
 
-    foreach (glob($blocks_dir . '*/block.json') ?: [] as $block_json) {
-        register_block_type(dirname($block_json));
-    }
+	foreach (glob($blocks_dir . '*/block.json') ?: [] as $block_json) {
+		register_block_type(dirname($block_json));
+	}
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -141,7 +141,7 @@ add_action('init', function (): void {
 // they don't get lost among core and plugin patterns in the inserter.
 // ─────────────────────────────────────────────────────────────────────────────
 add_action('init', function (): void {
-    register_block_pattern_category('abra', ['label' => 'Abra']);
+	register_block_pattern_category('abra', ['label' => 'Abra']);
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -151,13 +151,13 @@ add_action('init', function (): void {
 // default) so it doesn't re-nag developers who skip ACF intentionally.
 // ─────────────────────────────────────────────────────────────────────────────
 if (is_admin()) {
-    require_once get_template_directory() . '/lib/wp-dismiss-notice.php';
-    require_once get_template_directory() . '/lib/wp-dependency-installer-skin.php';
-    require_once get_template_directory() . '/lib/wp-dependency-installer.php';
+	require_once get_template_directory() . '/lib/wp-dismiss-notice.php';
+	require_once get_template_directory() . '/lib/wp-dependency-installer-skin.php';
+	require_once get_template_directory() . '/lib/wp-dependency-installer.php';
 
-    add_filter('wp_dependency_timeout', fn() => 'forever');
+	add_filter('wp_dependency_timeout', fn() => 'forever');
 
-    WP_Dependency_Installer::instance(get_template_directory())->run();
+	WP_Dependency_Installer::instance(get_template_directory())->run();
 }
 
 // First-run setup lives in lib/setup.php.
