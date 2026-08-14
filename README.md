@@ -1,7 +1,7 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="/_dev/github/abra_logo_light.svg">
-  <source media="(prefers-color-scheme: light)" srcset="/_dev/github/abra_logo_dark.svg">
-  <img alt="Abra" src="/_dev/github/abra_logo_dark.svg" width="120">
+  <source media="(prefers-color-scheme: dark)" srcset="/.github/abra_logo_light.svg">
+  <source media="(prefers-color-scheme: light)" srcset="/.github/abra_logo_dark.svg">
+  <img alt="Abra" src="/.github/abra_logo_dark.svg" width="120">
 </picture>
 
 # What's Abra?
