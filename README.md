@@ -32,9 +32,22 @@ From there Abra sets up your permalinks and creates Home, Blog, and Design Syste
 
 Build directly in Abra, or create a child theme for your project to keep your work separate from future Abra updates.
 
-On your dashboard and Appearance page, Abra shows a notice to create a child theme in one click. Type your project name, hit **Create Child Theme** — Abra generates a ready-to-edit theme, copies all the templates and parts into it, and activates it automatically.
+On your dashboard and Appearance page, Abra shows a notice to create a child theme in one click. Type your project name, hit **Create Child Theme** — Abra generates a ready-to-edit theme and activates it automatically.
 
-Your child theme includes a `theme-json-reference.json` — a comprehensive, copy-pasteable reference of all WordPress theme.json settings. Copy any section into `theme.json` and fill in your values.
+The child theme gets:
+
+| | What |
+|---|---|
+| `style.css` | Theme header pointing back to Abra as the parent |
+| `theme.json` | Minimal empty config — add your tokens here |
+| `theme-json-reference.json` | Copy-pasteable reference of every WordPress `theme.json` setting |
+| `functions.php` | ACF JSON sync, block auto-registration, and CSS auto-enqueue wired up |
+| `CLAUDE.md` / `DESIGN.md` | Context stubs scoped to the child project |
+| `acf-json/` | Empty directory for ACF field group sync |
+| `/templates/` | All templates except `design-system.html` (parent dev tool) |
+| `/parts/` | All template parts |
+| `/blocks/` | All blocks — `abra/` namespace rewritten to your project slug |
+| `/patterns/` | All patterns — `abra/` namespace rewritten to your project slug |
 
 ---
 
@@ -63,9 +76,20 @@ If Abra is a reset WordPress theme, the [Abra Figma Kit](https://www.figma.com/c
 
 ## Blocks and patterns
 
-A starter block lives in `/blocks/example-card/` — duplicate the folder to create a new one, it registers itself automatically.
+Duplicate any block folder or pattern file to create a new one — both register themselves automatically.
 
-A starter pattern lives in `/patterns/example-hero.php` — duplicate and edit.
+| | Name | Description |
+|---|---|---|
+| Block | `example-card` | ACF block starter — renders via `render.php`, saves fields to `acf-json/` |
+| Pattern | `example-hero` | Minimal hero section starter |
+| Template | `index.html` | Blog/home feed |
+| Template | `single.html` | Single post |
+| Template | `page.html` | Static page |
+| Template | `archive.html` | Category, tag, and date archives |
+| Template | `404.html` | Not found |
+| Template | `design-system.html` | `/abra-design-system` reference page — HTML elements at browser defaults |
+| Part | `header.html` | Shared header |
+| Part | `footer.html` | Shared footer |
 
 ---
 
