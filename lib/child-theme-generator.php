@@ -187,7 +187,8 @@ function abra_copy_dir_transformed(string $src, string $dst, callable $transform
 // ─────────────────────────────────────────────────────────────────────────────
 function abra_child_style_css(string $name): string
 {
-	return "/*\nTheme Name: {$name}\nTemplate:   abra\nVersion:    1.0.0\n*/\n";
+	$template = get_template();
+	return "/*\nTheme Name: {$name}\nTemplate:   {$template}\nVersion:    1.0.0\n*/\n";
 }
 
 function abra_child_theme_json(): string
