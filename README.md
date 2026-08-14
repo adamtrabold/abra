@@ -13,14 +13,18 @@ Only necessary templates, blocks, and patterns to get started are provided, ever
 
 ## Getting started
 
-The easiest way to get started is to have your favorite LLM clone this repo into your project and activate it for you. If you want to do it manually:
+The easiest way to get started is to have your favorite LLM clone this repo into your project and activate it for you. 
+
+If you want to do it manually, paste this into your terminal (cd = "change directory"... make sure you are pointing to the right folder on your machine. dragging-and-dropping the folder directly into the terminal will make this easy) —
 
 ```bash
 cd wp-content/themes
 git clone https://github.com/adamtrabold/abra
 ```
 
-Activate in **Appearance → Themes**. Abra sets up your permalinks and creates Home, Blog, and Design System pages automatically. An admin notice will prompt you to install ACF.
+Then activate the theme inside of WP-Admin at **Appearance → Themes**. 
+
+From there Abra sets up your permalinks and creates Home, Blog, and Design System pages automatically. An admin notice will prompt you to install ACF, as well as ask if you want to create a child theme automatically.
 
 ------
 
