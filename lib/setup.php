@@ -172,6 +172,12 @@ function abra_render_setup_page(): void
 				</a>
 			</p>
 		</form>
+
+		<p style="margin-top:24px;padding-top:24px;border-top:1px solid #eee;">
+			<a href="https://www.figma.com/community/file/1669854326293587407" target="_blank" rel="noopener">
+				<?php esc_html_e('Open the Abra Figma Kit →', 'abra'); ?>
+			</a>
+		</p>
 	</div>
 	<?php
 }
