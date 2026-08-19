@@ -53,7 +53,7 @@ add_action('admin_notices', function (): void {
 	<div class="notice notice-info">
 		<p>
 			<?php esc_html_e('Abra is activated.', 'abra'); ?>
-			<a href="<?php echo $setup_url; ?>" class="button button-primary" style="margin-left:8px;">
+			<a href="<?php echo esc_url($setup_url); ?>" class="button button-primary" style="margin-left:8px;">
 				<?php esc_html_e('Set up your project →', 'abra'); ?>
 			</a>
 		</p>

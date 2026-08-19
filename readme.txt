@@ -60,6 +60,12 @@ Global styles go in assets/css/global.css. Block-specific styles go in assets/cs
 = 1.0.0 =
 * Initial release.
 
+== Privacy Policy ==
+
+Abra does not collect any user data.
+
 == Resources ==
 
-* Andy Bell's Modern CSS Reset, MIT License, https://andy-bell.co.uk/a-more-modern-css-reset/
+* Andy Bell's Modern CSS Reset, Copyright Andy Bell, MIT License, https://andy-bell.co.uk/a-more-modern-css-reset/
+
+* Abra Logo, © 2026 Adam Trabold. All rights reserved. The Abra name and logo may not be used without permission.

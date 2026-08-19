@@ -12,7 +12,7 @@ if (!is_admin()) {
 // Offers a one-field form to generate and activate a child theme.
 // ─────────────────────────────────────────────────────────────────────────────
 add_action('admin_notices', function (): void {
-	if (get_stylesheet() !== 'abra') {
+	if (get_template() !== get_stylesheet()) {
 		return;
 	}
 	if (get_option('abra_child_dismissed')) {
@@ -26,7 +26,7 @@ add_action('admin_notices', function (): void {
 	$dismiss_url = esc_url(wp_nonce_url(admin_url('admin-post.php?action=abra_dismiss_child'), 'abra_dismiss_child'));
 	?>
 	<div class="notice notice-info" id="abra-child-notice">
-		<form method="post" action="<?= $action_url ?>" style="display:flex;align-items:center;gap:1.25rem;padding:0.5rem 0;">
+		<form method="post" action="<?php echo esc_url($action_url); ?>" style="display:flex;align-items:center;gap:1.25rem;padding:0.5rem 0;">
 			<?php wp_nonce_field('abra_create_child', 'abra_nonce'); ?>
 			<input type="hidden" name="action" value="abra_create_child">
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1014.98" height="48" aria-label="Abra" style="display:block;flex-shrink:0;margin-left:0.5rem;">
@@ -36,7 +36,7 @@ add_action('admin_notices', function (): void {
 				<p style="margin:0;"><?php esc_html_e('Build directly in this theme, or generate a child theme to keep your project separate from Abra updates.', 'abra'); ?></p>
 				<input type="text" name="abra_child_name" placeholder="<?php esc_attr_e('Project name', 'abra'); ?>" style="width:180px;" required>
 				<button type="submit" class="button button-primary"><?php esc_html_e('Create Child Theme', 'abra'); ?></button>
-				<a href="<?= $dismiss_url ?>" style="color:inherit;opacity:0.5;font-size:0.85em;text-decoration:none;"><?php esc_html_e('Dismiss', 'abra'); ?></a>
+				<a href="<?php echo esc_url($dismiss_url); ?>" style="color:inherit;opacity:0.5;font-size:0.85em;text-decoration:none;"><?php esc_html_e('Dismiss', 'abra'); ?></a>
 			</div>
 		</form>
 	</div>
@@ -131,14 +131,16 @@ function abra_generate_child(string $slug, string $name): true|WP_Error
 	}
 
 	// Blocks — update abra/ namespace to child slug in block.json
-	abra_copy_dir_transformed(
-		$parent_dir . '/blocks',
-		$child_dir  . '/blocks',
-		fn (string $content, string $file): string =>
-			basename($file) === 'block.json'
-				? str_replace(['"abra/', '"category": "abra"'], ['"' . $slug . '/', '"category": "' . $slug . '"'], $content)
-				: $content
-	);
+	if (is_dir($parent_dir . '/blocks')) {
+		abra_copy_dir_transformed(
+			$parent_dir . '/blocks',
+			$child_dir  . '/blocks',
+			fn (string $content, string $file): string =>
+				basename($file) === 'block.json'
+					? str_replace(['"abra/', '"category": "abra"'], ['"' . $slug . '/', '"category": "' . $slug . '"'], $content)
+					: $content
+		);
+	}
 
 	// Patterns — update abra/ namespace to child slug
 	wp_mkdir_p($child_dir . '/patterns');
