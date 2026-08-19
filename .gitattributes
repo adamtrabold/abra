@@ -2,3 +2,6 @@
 .DS_Store export-ignore
 .github/ export-ignore
 .gitignore export-ignore
+.gitattributes export-ignore
+assets/images/.gitkeep export-ignore
+assets/js/.gitkeep export-ignore
