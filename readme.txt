@@ -68,4 +68,4 @@ Abra does not collect any user data.
 
 * Andy Bell's Modern CSS Reset, Copyright Andy Bell, MIT License, https://andy-bell.co.uk/a-more-modern-css-reset/
 
-* Abra Logo, © 2026 Adam Trabold. All rights reserved. The Abra name and logo may not be used without permission.
+* Abra Logo, Copyright 2026 Adam Trabold, GPL v2 or later

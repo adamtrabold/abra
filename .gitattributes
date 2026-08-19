@@ -5,3 +5,4 @@
 .gitattributes export-ignore
 assets/images/.gitkeep export-ignore
 assets/js/.gitkeep export-ignore
+README.md export-ignore
