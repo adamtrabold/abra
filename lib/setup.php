@@ -129,20 +129,24 @@ function abra_render_setup_page(): void
 			<?php // ── Section 2: Child theme ───────────────────────────────── ?>
 			<div style="border:1px solid #ddd;border-radius:4px;padding:20px 24px;margin-bottom:20px;">
 				<h2 style="margin-top:0;"><?php esc_html_e('Child theme', 'abra'); ?></h2>
-				<p><?php esc_html_e('A child theme keeps your project files separate from Abra so future theme updates don\'t overwrite your work.', 'abra'); ?></p>
-				<label style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
-					<input type="checkbox" name="create_child" value="1" checked>
-					<?php esc_html_e('Create a child theme for this project', 'abra'); ?>
-				</label>
-				<label>
-					<?php esc_html_e('Project name', 'abra'); ?><br>
-					<input
-						type="text"
-						name="child_theme_name"
-						placeholder="<?php esc_attr_e('My Project', 'abra'); ?>"
-						style="width:100%;max-width:320px;margin-top:4px;"
-					>
-				</label>
+				<?php if (get_template() !== get_stylesheet()): ?>
+					<p style="color:#46b450;">&#10003; <?php esc_html_e('A child theme is already active.', 'abra'); ?></p>
+				<?php else: ?>
+					<p><?php esc_html_e('A child theme keeps your project files separate from Abra so future theme updates don\'t overwrite your work.', 'abra'); ?></p>
+					<label style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+						<input type="checkbox" name="create_child" value="1" checked>
+						<?php esc_html_e('Create a child theme for this project', 'abra'); ?>
+					</label>
+					<label>
+						<?php esc_html_e('Project name', 'abra'); ?><br>
+						<input
+							type="text"
+							name="child_theme_name"
+							placeholder="<?php esc_attr_e('My Project', 'abra'); ?>"
+							style="width:100%;max-width:320px;margin-top:4px;"
+						>
+					</label>
+				<?php endif; ?>
 			</div>
 
 			<?php // ── Section 3: Starter pages ─────────────────────────────── ?>
@@ -195,7 +199,7 @@ add_action('admin_post_abra_setup', function (): void {
 	}
 
 	// Child theme
-	if (!empty($_POST['create_child'])) {
+	if (!empty($_POST['create_child']) && get_template() === get_stylesheet()) {
 		$name = sanitize_text_field(wp_unslash($_POST['child_theme_name'] ?? ''));
 		if ($name && function_exists('abra_generate_child')) {
 			$slug   = sanitize_title($name);
