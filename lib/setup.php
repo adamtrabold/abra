@@ -48,6 +48,9 @@ add_action('admin_notices', function (): void {
 	if (!current_user_can('manage_options')) {
 		return;
 	}
+	if (get_current_screen()?->id === 'appearance_page_abra-setup') {
+		return;
+	}
 	$setup_url = esc_url(admin_url('themes.php?page=abra-setup'));
 	?>
 	<div class="notice notice-info">
