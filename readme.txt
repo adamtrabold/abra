@@ -51,6 +51,16 @@ After activating Abra, visit your WordPress dashboard. The setup notice includes
 
 Global styles go in assets/css/global.css. Block-specific styles go in assets/css/blocks.css. Both are enqueued automatically if the files exist.
 
+== Developer Tools ==
+
+Abra ships with a `_dev/` folder containing development tooling renamed from their dotfile originals so they pass the WordPress.org automated checker. If you want Claude Code (or another AI coding assistant) to use them, rename and move them into place at the theme root:
+
+* `_dev/claude/` → `.claude/`
+* `_dev/github/` → `.github/`
+* `_dev/gitignore` → `.gitignore`
+
+Once `.claude/` is in place, the `/abra-build` and `/abra-review` slash commands will be available in Claude Code automatically.
+
 == Screenshots ==
 
 1. The theme in its reset state — a blank canvas with no applied styles.
