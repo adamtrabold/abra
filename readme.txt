@@ -63,7 +63,7 @@ Once `.claude/` is in place, the `/abra-build` and `/abra-review` slash commands
 
 == Screenshots ==
 
-1. The theme in its reset state — a blank canvas with no applied styles.
+1. The Abra logo, displayed in the WordPress admin theme browser.
 
 == Changelog ==
 
